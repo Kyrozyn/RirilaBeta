@@ -2,11 +2,13 @@
 
 /** @noinspection PhpUndefinedMethodInspection */
 require __DIR__.'/vendor/autoload.php';
-require 'def.php';
-require 'db.php';
 //include add class..
-include "controller/gacha.php";
-
+foreach (glob("controller/*.php") as $filename) {
+    include $filename;
+}
+foreach (glob("settings/*.php") as $filename) {
+    include $filename;
+}
 //
 use Controller\gacha;
 use LINE\LINEBot;
