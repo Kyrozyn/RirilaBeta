@@ -1,0 +1,17 @@
+{
+  "name": "kyrozyn/ririlabot",
+  "description": "Ririla Line Bot",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Andreas Rizki Rizaldi",
+      "email": "arizkirizaldi@email.unikom.ac.id"
+    }
+  ],
+  "require": {
+    "slim/slim": "3.12.1",
+    "catfan/medoo": "v1.6.1",
+    "linecorp/line-bot-sdk": "3.8.0"
+  }
+}
