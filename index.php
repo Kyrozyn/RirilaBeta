@@ -11,6 +11,7 @@ foreach (glob("settings/*.php") as $filename) {
 }
 //
 use Controller\gacha;
+use Controller\textParser;
 use LINE\LINEBot;
 use LINE\LINEBot\Constant\HTTPHeader;
 use LINE\LINEBot\HTTPClient\CurlHTTPClient;

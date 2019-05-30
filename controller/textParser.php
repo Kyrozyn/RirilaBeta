@@ -6,6 +6,8 @@
  * Date: 17/11/2017
  * Time: 10:25.
  */
+
+namespace Controller;
 class textParser
 {
     public $textKecil;
