@@ -1,0 +1,39 @@
+{
+  "addons": [
+    "heroku-postgresql"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/php"
+    }
+  ],
+  "env": {
+    "CHANNEL_ACCESS_TOKEN": {
+      "required": true
+    },
+    "CHANNEL_SECRET": {
+      "required": true
+    },
+    "DATABASE_NAME": {
+      "required": true
+    },
+    "DATABASE_PASSWORD": {
+      "required": true
+    },
+    "DATABASE_SERVER": {
+      "required": true
+    },
+    "DATABASE_USERNAME": {
+      "required": true
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "name": "RirilaBeta",
+  "scripts": {
+  },
+  "stack": "heroku-18"
+}
