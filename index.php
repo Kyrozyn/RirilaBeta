@@ -26,9 +26,6 @@ $bot = new LINEBot($httpClient, ['channelSecret' => $channel_secret]);
 
 $app->post('/bot', function (Request $req, Response $res) use ($bot, $db) {
     try {
-        //include things
-        include 'textParser.php';
-
         //Lets make a log..
         file_put_contents('php://stderr', 'Body : '.file_get_contents('php://input'));
 
