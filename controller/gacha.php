@@ -11,10 +11,11 @@ class gacha
     public static function gachaSatu()
     {
         $roll = null;
+
         try {
             $roll = random_int(1, 100);
         } catch (Exception $e) {
-            file_put_contents('php://stderr', 'Exception while random: ' . $e->getMessage());
+            file_put_contents('php://stderr', 'Exception while random: '.$e->getMessage());
         }
         if ($roll == 100) {
             $reply = new TextMessageBuilder('5* Servant');
@@ -29,6 +30,7 @@ class gacha
         } else {
             $reply = new TextMessageBuilder('3* CE');
         }
+
         return $reply;
     }
 
@@ -41,32 +43,33 @@ class gacha
         $r = 0;
         for ($a = 0; $a < 10; $a++) {
             $roll = null;
+
             try {
                 $roll = random_int(1, 100);
             } catch (Exception $e) {
-                file_put_contents('php://stderr', 'Exception while random: ' . $e->getMessage());
+                file_put_contents('php://stderr', 'Exception while random: '.$e->getMessage());
             }
             if ($roll == 100) {
-                $balas = $balas . '5* Servant';
+                $balas = $balas.'5* Servant';
                 $ssr = $ssr + 1;
             } elseif ($roll <= 99 && $roll > 96) {
-                $balas = $balas . '5* CE';
+                $balas = $balas.'5* CE';
                 $ssr = $ssr + 1;
             } elseif ($roll <= 96 && $roll > 92) {
-                $balas = $balas . '4* Servant';
+                $balas = $balas.'4* Servant';
                 $sr = $sr + 1;
             } elseif ($roll <= 92 && $roll > 84) {
-                $balas = $balas . '4* CE';
+                $balas = $balas.'4* CE';
                 $sr = $sr + 1;
             } elseif ($roll <= 84 && $roll > 44) {
-                $balas = $balas . '3* Servant';
+                $balas = $balas.'3* Servant';
                 $r = $r + 1;
             } else {
-                $balas = $balas . '3* CE';
+                $balas = $balas.'3* CE';
                 $r = $r + 1;
             }
             if ($a != 9) {
-                $balas = $balas . "\n";
+                $balas = $balas."\n";
             }
         }
         if ($ssr == 10 or $sr == 10 or $r == 10) {
@@ -80,10 +83,11 @@ class gacha
                 $rand = ['Jangan lupa sikat gigi sebelum gacha ^_^', 'Jangan lupa puasa sebelum gacha ^_^', 'Jangan lupa makan sebelum gacha ^_^', 'Jangan lupa minum sebelum gacha ^_^'];
                 $tx = $rand[array_rand($rand)];
             }
-            $text2 = new TextMessageBuilder('SSR = ' . $ssr . "\nSR = " . $sr . "\nR =" . $r . "\n" . $tx);
+            $text2 = new TextMessageBuilder('SSR = '.$ssr."\nSR = ".$sr."\nR =".$r."\n".$tx);
             $reply = new MultiMessageBuilder();
             $reply->add($text1);
             $reply->add($text2);
+
             return $reply;
         }
     }

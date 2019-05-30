@@ -8,6 +8,7 @@
  */
 
 namespace Controller;
+
 class textParser
 {
     public $textKecil;
