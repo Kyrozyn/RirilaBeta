@@ -13,6 +13,7 @@ foreach (glob('model/*.php') as $filename) {
     include $filename;
 }
 //
+use Controller\admin;
 use Controller\gacha;
 use Controller\textParser;
 use Controller\xp;
@@ -60,6 +61,10 @@ $app->post('/bot', function (Request $req, Response $res) use ($bot) {
                         $xp = new xp($event->getUserId());
                         $reply = $xp->checkXP();
                         break;
+                    case 'grp':
+                        $admin = new admin($event->getGroupId());
+                        $reply = $admin->sendGroupID();
+                        break;
                 }
                 $bot->replyMessage($event->getReplyToken(), $reply);
             }
@@ -69,6 +74,12 @@ $app->post('/bot', function (Request $req, Response $res) use ($bot) {
     }
 
     return true;
+});
+
+$app->get('/send/{groupid}/{message}', function ($args) use ($bot) {
+    $groupid = $args['groupid'];
+    $message = $args['message'];
+    $bot->pushMessage($groupid, $message);
 });
 
 try {

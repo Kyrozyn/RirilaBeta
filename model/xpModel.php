@@ -19,4 +19,5 @@ class xpModel extends objectDB
         return $this->db->has("xp", ['userid' => $this->userid]);
     }
 
+
 }
