@@ -9,9 +9,13 @@ foreach (glob('controller/*.php') as $filename) {
 foreach (glob('settings/*.php') as $filename) {
     include $filename;
 }
+foreach (glob('model/*.php') as $filename) {
+    include $filename;
+}
 //
 use Controller\gacha;
 use Controller\textParser;
+use Controller\xp;
 use LINE\LINEBot;
 use LINE\LINEBot\Constant\HTTPHeader;
 use LINE\LINEBot\HTTPClient\CurlHTTPClient;
@@ -25,7 +29,7 @@ $httpClient = new CurlHTTPClient($channel_access_token);
 $bot = new LINEBot($httpClient, ['channelSecret' => $channel_secret]);
 //
 
-$app->post('/bot', function (Request $req, Response $res) use ($bot, $db) {
+$app->post('/bot', function (Request $req, Response $res) use ($bot) {
     try {
         //Lets make a log..
         file_put_contents('php://stderr', 'Body : '.file_get_contents('php://input'));
@@ -51,6 +55,10 @@ $app->post('/bot', function (Request $req, Response $res) use ($bot, $db) {
                     case 'gacha banyak':
                     case 'gacha kontol':
                         $reply = gacha::gachaBanyak();
+                        break;
+                    case 'xp':
+                        $xp = new xp($event->getUserId());
+                        $reply = $xp->checkXP();
                         break;
                 }
                 $bot->replyMessage($event->getReplyToken(), $reply);
