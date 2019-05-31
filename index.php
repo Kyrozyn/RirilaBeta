@@ -79,7 +79,8 @@ $app->post('/bot', function (Request $req, Response $res) use ($bot) {
 $app->get('/send/{groupid}/{message}', function (Request $req, Response $res, $args) use ($bot) {
     $groupid = $args['groupid'];
     $message = $args['message'];
-    $bot->pushMessage($groupid, $message);
+    $text = admin::push($message);
+    $bot->pushMessage($groupid, $text);
 });
 
 try {

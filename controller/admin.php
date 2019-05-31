@@ -25,4 +25,10 @@ class admin
         $reply = new TextMessageBuilder($this->groupid);
         return $reply;
     }
+
+    static function push($text)
+    {
+        $reply = new TextMessageBuilder($text);
+        return $reply;
+    }
 }
