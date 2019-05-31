@@ -38,10 +38,10 @@ class anime
         $result = $this->jikan->AnimeSearch($title)->getResults();
         try {
             $Carousel = new ImageCarouselTemplateBuilder([
-                new ImageCarouselColumnTemplateBuilder($result[$posisi]->getImageUrl(), new UriTemplateActionBuilder($result[$posisi]->getTitle(), $result[$posisi]->getUrl())),
-                new ImageCarouselColumnTemplateBuilder($result[$posisi + 1]->getImageUrl(), new UriTemplateActionBuilder($result[$posisi + 1]->getTitle(), $result[$posisi + 1]->getUrl())),
-                new ImageCarouselColumnTemplateBuilder($result[$posisi + 2]->getImageUrl(), new UriTemplateActionBuilder($result[$posisi]->getTitle(), $result[$posisi]->getUrl())),
-                new ImageCarouselColumnTemplateBuilder($result[$posisi + 3]->getImageUrl(), new UriTemplateActionBuilder($result[$posisi]->getTitle(), $result[$posisi]->getUrl())),
+                new ImageCarouselColumnTemplateBuilder($result[$posisi]->getImageUrl(), new UriTemplateActionBuilder(substr($result[$posisi]->getTitle(),0,11), $result[$posisi]->getUrl())),
+                new ImageCarouselColumnTemplateBuilder($result[$posisi + 1]->getImageUrl(), new UriTemplateActionBuilder(substr($result[$posisi + 1]->getTitle(),0,11), $result[$posisi + 1]->getUrl())),
+                new ImageCarouselColumnTemplateBuilder($result[$posisi + 2]->getImageUrl(), new UriTemplateActionBuilder(substr($result[$posisi]->getTitle(),0,11), $result[$posisi]->getUrl())),
+                new ImageCarouselColumnTemplateBuilder($result[$posisi + 3]->getImageUrl(), new UriTemplateActionBuilder(substr($result[$posisi]->getTitle(),0,11), $result[$posisi]->getUrl())),
                 new ImageCarouselColumnTemplateBuilder("https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png", new MessageTemplateActionBuilder("Next", "nim"))
             ]);
             $reply = new TemplateMessageBuilder("Anime", $Carousel);
