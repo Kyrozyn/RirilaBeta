@@ -1,5 +1,5 @@
 <?php
-
+/** @noinspection PhpUnusedParameterInspection */
 /** @noinspection PhpUndefinedMethodInspection */
 require __DIR__.'/vendor/autoload.php';
 //include add class..

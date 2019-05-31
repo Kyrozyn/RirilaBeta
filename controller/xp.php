@@ -30,6 +30,9 @@ class xp
         $this->model = new xpModel($userid, $groupid);
     }
 
+    /**
+     * @return TextMessageBuilder
+     */
     public function isFound()
     {
         if ($this->model->hasXP()) {
@@ -41,6 +44,9 @@ class xp
         return $reply;
     }
 
+    /**
+     * @return TextMessageBuilder
+     */
     public function getXP()
     {
         $xp = $this->model->getXP();
