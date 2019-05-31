@@ -70,6 +70,9 @@ $app->post('/bot', function (Request $req, Response $res) use ($bot) {
                     case 'lb':
                         $reply = $xp->getLeaderboard();
                         break;
+                    case 'lbg':
+                        $reply = $xp->getGroupLeaderBoard();
+                        break;
                     //Admin
                     case 'gid':
                         $reply = $admin->sendGroupID();

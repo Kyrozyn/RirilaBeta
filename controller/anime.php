@@ -51,8 +51,6 @@ class anime
                 new ImageCarouselColumnTemplateBuilder("https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png", new MessageTemplateActionBuilder("Next", "nim*".$title."*".$nextpage))
             ]);
             $reply = new TemplateMessageBuilder("Anime", $Carousel);
-            $header = new TextComponentBuilder($result[$posisi]->getTitle(),null,null,"md",null,null,true);
-            $bubble = new BubbleContainerBuilder(null,$header);
         return $reply;
     }
 }
