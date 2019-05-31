@@ -4,7 +4,7 @@ use Medoo\Medoo;
 
 try {
     $db = new Medoo([
-        'database_type' => 'pgsql',
+        'database_type' => getenv('DATABASE_TYPE'),
         'database_name' => getenv('DATABASE_NAME'),
         'server'        => getenv('DATABASE_SERVER'),
         'username'      => getenv('DATABASE_USERNAME'),
