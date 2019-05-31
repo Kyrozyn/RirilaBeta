@@ -76,7 +76,7 @@ $app->post('/bot', function (Request $req, Response $res) use ($bot) {
     return true;
 });
 
-$app->get('/send/{groupid}/{message}', function ($args) use ($bot) {
+$app->get('/send/{groupid}/{message}', function (Request $req, Response $res, $args) use ($bot) {
     $groupid = $args['groupid'];
     $message = $args['message'];
     $bot->pushMessage($groupid, $message);
