@@ -91,7 +91,8 @@ $app->post('/bot', function (Request $req, Response $res) use ($bot) {
                         }
                         break;
                 }
-                $bot->replyMessage($event->getReplyToken(), $reply);
+                $cek = $bot->replyMessage($event->getReplyToken(), $reply);
+                file_put_contents('php://stderr', print_r($cek->getJSONDecodedBody(),1));
             }
         }
     } catch (Exception $e) {
