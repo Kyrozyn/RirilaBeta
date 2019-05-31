@@ -65,6 +65,32 @@ class xp
             $nama = $json['displayName'];
             if (empty($nama)) {
                 $nama = "????";
+            }
+            $balas = $balas . $angka . ". " . $nama . " : " . $id["xp"];
+            if ($angka < 10) {
+                $balas = $balas . "\n";
+            }
+        }
+        $satu = new TextMessageBuilder($header);
+        $dua = new TextMessageBuilder($balas);
+        $reply = new MultiMessageBuilder();
+        $reply->add($satu);
+        $reply->add($dua);
+        return $reply;
+    }
+
+    public function getGroupLeaderBoard()
+    {
+        $header = "***Group Leaderboard***";
+        $angka = 0;
+        $balas = null;
+        foreach ($this->model->getGroupLeaderboard() as $id) {
+            $angka = $angka + 1;
+            $profile = $this->bot->getProfile($id['userid']);
+            $json = $profile->getJSONDecodedBody();
+            $nama = $json['displayName'];
+            if (empty($nama)) {
+                $nama = "????";
                 $warn = new TextMessageBuilder("Hmm... Apa kalian semua sudah add aku? Aku tidak bisa menampilkan namamu :(");
             }
             $balas = $balas . $angka . ". " . $nama . " : " . $id["xp"];
