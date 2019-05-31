@@ -80,9 +80,6 @@ $app->post('/bot', function (Request $req, Response $res) use ($bot) {
                     case 'uid':
                         $reply = $admin->sendGroupID();
                         break;
-                    case 'testnim':
-                        $reply = $anime->searchAnime("tate no yuusha");
-                        break;
                 }
                 switch (strtolower($text->textBintang[0])) {
                     case 'anime':
@@ -99,7 +96,7 @@ $app->post('/bot', function (Request $req, Response $res) use ($bot) {
             }
         }
     } catch (Exception $e) {
-        file_put_contents('php://stderr', 'Exception : '.$e->getMessage());
+        file_put_contents('php://stderr', 'Exception : ' . $e->getMessage());
     }
 
     return true;
