@@ -15,6 +15,7 @@ foreach (glob('model/*.php') as $filename) {
 }
 //
 use Controller\admin;
+use Controller\anime;
 use Controller\gacha;
 use Controller\textParser;
 use Controller\xp;
@@ -46,6 +47,7 @@ $app->post('/bot', function (Request $req, Response $res) use ($bot) {
         foreach ($events as $event) {
             $admin = new admin($event->getUserId(), $event->getGroupId());
             $xp = new xp($event->getUserId(), $event->getGroupId(), $bot);
+            $anime = new anime();
             $text = new textParser($event->getText());
             $reply = null;
             if ($event->isUserEvent()) {
@@ -74,6 +76,16 @@ $app->post('/bot', function (Request $req, Response $res) use ($bot) {
                         break;
                     case 'uid':
                         $reply = $admin->sendGroupID();
+                        break;
+                }
+                switch (strtolower($text->textBintang[0])) {
+                    case 'anime':
+                    case 'nim':
+                        if (isset($text->textBintang[2])) {
+                            $reply = $anime->searchAnime($text->textBintang[1], $text->textBintang[2]);
+                        } else {
+                            $reply = $anime->searchAnime($text->textBintang[1]);
+                        }
                         break;
                 }
                 $bot->replyMessage($event->getReplyToken(), $reply);
