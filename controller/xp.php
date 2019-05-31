@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Controller;
-
 
 use LINE\LINEBot;
 use LINE\LINEBot\MessageBuilder\MultiMessageBuilder;
@@ -18,6 +16,7 @@ class xp
 
     /**
      * xp constructor.
+     *
      * @param $userid
      * @param $groupid
      * @param LINEBot $bot
@@ -39,8 +38,8 @@ class xp
             $reply = new TextMessageBuilder('your XP found');
         } else {
             $reply = new TextMessageBuilder('your XP not found');
-
         }
+
         return $reply;
     }
 
@@ -50,7 +49,8 @@ class xp
     public function getXP()
     {
         $xp = $this->model->getXP();
-        $reply = new TextMessageBuilder("XP kamu = " . $xp);
+        $reply = new TextMessageBuilder('XP kamu = '.$xp);
+
         return $reply;
     }
 
@@ -61,7 +61,7 @@ class xp
 
     public function getLeaderboard()
     {
-        $header = "***Leaderboard***";
+        $header = '***Leaderboard***';
         $angka = 0;
         $balas = null;
         foreach ($this->model->getLeaderboard() as $id) {
@@ -70,11 +70,11 @@ class xp
             $json = $profile->getJSONDecodedBody();
             $nama = $json['displayName'];
             if (empty($nama)) {
-                $nama = "????";
+                $nama = '????';
             }
-            $balas = $balas . $angka . ". " . $nama . " : " . $id["xp"];
+            $balas = $balas.$angka.'. '.$nama.' : '.$id['xp'];
             if ($angka < 10) {
-                $balas = $balas . "\n";
+                $balas = $balas."\n";
             }
         }
         $satu = new TextMessageBuilder($header);
@@ -82,12 +82,13 @@ class xp
         $reply = new MultiMessageBuilder();
         $reply->add($satu);
         $reply->add($dua);
+
         return $reply;
     }
 
     public function getGroupLeaderBoard()
     {
-        $header = "***Group Leaderboard***";
+        $header = '***Group Leaderboard***';
         $angka = 0;
         $balas = null;
         foreach ($this->model->getGroupLeaderboard() as $id) {
@@ -96,12 +97,12 @@ class xp
             $json = $profile->getJSONDecodedBody();
             $nama = $json['displayName'];
             if (empty($nama)) {
-                $nama = "????";
-                $warn = new TextMessageBuilder("Hmm... Apa kalian semua sudah add aku? Aku tidak bisa menampilkan namamu :(");
+                $nama = '????';
+                $warn = new TextMessageBuilder('Hmm... Apa kalian semua sudah add aku? Aku tidak bisa menampilkan namamu :(');
             }
-            $balas = $balas . $angka . ". " . $nama . " : " . $id["xp"];
+            $balas = $balas.$angka.'. '.$nama.' : '.$id['xp'];
             if ($angka < 10) {
-                $balas = $balas . "\n";
+                $balas = $balas."\n";
             }
         }
         $satu = new TextMessageBuilder($header);
@@ -112,6 +113,7 @@ class xp
         if (isset($warn)) {
             $reply->add($warn);
         }
+
         return $reply;
     }
 }
