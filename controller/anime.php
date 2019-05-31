@@ -48,7 +48,7 @@ class anime
                 new ImageCarouselColumnTemplateBuilder($result[$posisi + 1]->getImageUrl(), new UriTemplateActionBuilder(substr($result[$posisi + 1]->getTitle(),0,11), $result[$posisi + 1]->getUrl())),
                 new ImageCarouselColumnTemplateBuilder($result[$posisi + 2]->getImageUrl(), new UriTemplateActionBuilder(substr($result[$posisi+2]->getTitle(),0,11), $result[$posisi+2]->getUrl())),
                 new ImageCarouselColumnTemplateBuilder($result[$posisi + 3]->getImageUrl(), new UriTemplateActionBuilder(substr($result[$posisi+3]->getTitle(),0,11), $result[$posisi+3]->getUrl())),
-                new ImageCarouselColumnTemplateBuilder("https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png", new MessageTemplateActionBuilder("Next", "nim*".$title.$nextpage))
+                new ImageCarouselColumnTemplateBuilder("https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png", new MessageTemplateActionBuilder("Next", "nim*".$title."*".$nextpage))
             ]);
             $reply = new TemplateMessageBuilder("Anime", $Carousel);
             $header = new TextComponentBuilder($result[$posisi]->getTitle(),null,null,"md",null,null,true);
