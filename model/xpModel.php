@@ -14,6 +14,7 @@ class xpModel extends objectDB
         parent::__construct();
         $this->userid = $userid;
         $this->groupid = $groupid;
+        $this->addXP();
     }
 
     function hasXP()

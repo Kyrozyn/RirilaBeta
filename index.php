@@ -67,7 +67,6 @@ $app->post('/bot', function (Request $req, Response $res) use ($bot) {
                         break;
                 }
                 $bot->replyMessage($event->getReplyToken(), $reply);
-                $xp->addXP();
             }
         }
     } catch (Exception $e) {
