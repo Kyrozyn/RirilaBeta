@@ -11,18 +11,20 @@ class xp
 {
     private $model;
     private $userid;
+    private $groupid;
 
     /**
      * xp constructor.
      * @param $userid
      */
-    public function __construct($userid)
+    public function __construct($userid, $groupid)
     {
         $this->userid = $userid;
-        $this->model = new xpModel($userid);
+        $this->groupid = $groupid;
+        $this->model = new xpModel($userid, $groupid);
     }
 
-    public function checkXP()
+    public function isFound()
     {
         if ($this->model->hasXP()) {
             $reply = new TextMessageBuilder('your XP found');
@@ -30,6 +32,13 @@ class xp
             $reply = new TextMessageBuilder('your XP not found');
 
         }
+        return $reply;
+    }
+
+    public function checkXP()
+    {
+        $xp = $this->model->checkXP();
+        $reply = new TextMessageBuilder("XP kamu = " . $xp);
         return $reply;
     }
 }

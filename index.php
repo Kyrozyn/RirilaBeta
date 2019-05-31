@@ -43,6 +43,8 @@ $app->post('/bot', function (Request $req, Response $res) use ($bot) {
         }
         $events = $bot->parseEventRequest($req->getBody(), $signature[0]);
         foreach ($events as $event) {
+            $admin = new admin($event->getGroupId());
+            $xp = new xp($event->getUserId(), $event->getGroupId());
             $text = new textParser($event->getText());
             $reply = null;
             if ($event->isUserEvent()) {
@@ -58,11 +60,9 @@ $app->post('/bot', function (Request $req, Response $res) use ($bot) {
                         $reply = gacha::gachaBanyak();
                         break;
                     case 'xp':
-                        $xp = new xp($event->getUserId());
                         $reply = $xp->checkXP();
                         break;
                     case 'grp':
-                        $admin = new admin($event->getGroupId());
                         $reply = $admin->sendGroupID();
                         break;
                 }
