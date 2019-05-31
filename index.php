@@ -1,5 +1,6 @@
 <?php
 
+/** @noinspection PhpUnusedParameterInspection */
 /** @noinspection PhpUndefinedMethodInspection */
 require __DIR__.'/vendor/autoload.php';
 //include add class..
@@ -9,9 +10,14 @@ foreach (glob('controller/*.php') as $filename) {
 foreach (glob('settings/*.php') as $filename) {
     include $filename;
 }
+foreach (glob('model/*.php') as $filename) {
+    include $filename;
+}
 //
+use Controller\admin;
 use Controller\gacha;
 use Controller\textParser;
+use Controller\xp;
 use LINE\LINEBot;
 use LINE\LINEBot\Constant\HTTPHeader;
 use LINE\LINEBot\HTTPClient\CurlHTTPClient;
@@ -25,7 +31,7 @@ $httpClient = new CurlHTTPClient($channel_access_token);
 $bot = new LINEBot($httpClient, ['channelSecret' => $channel_secret]);
 //
 
-$app->post('/bot', function (Request $req, Response $res) use ($bot, $db) {
+$app->post('/bot', function (Request $req, Response $res) use ($bot) {
     try {
         //Lets make a log..
         file_put_contents('php://stderr', 'Body : '.file_get_contents('php://input'));
@@ -38,6 +44,8 @@ $app->post('/bot', function (Request $req, Response $res) use ($bot, $db) {
         }
         $events = $bot->parseEventRequest($req->getBody(), $signature[0]);
         foreach ($events as $event) {
+            $admin = new admin($event->getUserId(), $event->getGroupId());
+            $xp = new xp($event->getUserId(), $event->getGroupId(), $bot);
             $text = new textParser($event->getText());
             $reply = null;
             if ($event->isUserEvent()) {
@@ -45,12 +53,27 @@ $app->post('/bot', function (Request $req, Response $res) use ($bot, $db) {
             }
             if ($event->isGroupEvent()) {
                 switch ($text->textKecil) {
+                    //Gacha
                     case 'gacha':
                         $reply = gacha::gachaSatu();
                         break;
                     case 'gacha banyak':
                     case 'gacha kontol':
                         $reply = gacha::gachaBanyak();
+                        break;
+                    //XP
+                    case 'xp':
+                        $reply = $xp->getXP();
+                        break;
+                    case 'lb':
+                        $reply = $xp->getLeaderboard();
+                        break;
+                    //Admin
+                    case 'gid':
+                        $reply = $admin->sendGroupID();
+                        break;
+                    case 'uid':
+                        $reply = $admin->sendGroupID();
                         break;
                 }
                 $bot->replyMessage($event->getReplyToken(), $reply);
@@ -61,6 +84,13 @@ $app->post('/bot', function (Request $req, Response $res) use ($bot, $db) {
     }
 
     return true;
+});
+
+$app->get('/send/{groupid}/{message}', function (Request $req, Response $res, $args) use ($bot) {
+    $groupid = $args['groupid'];
+    $message = $args['message'];
+    $text = admin::push($message);
+    $bot->pushMessage($groupid, $text);
 });
 
 try {
