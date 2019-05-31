@@ -43,8 +43,8 @@ $app->post('/bot', function (Request $req, Response $res) use ($bot) {
         }
         $events = $bot->parseEventRequest($req->getBody(), $signature[0]);
         foreach ($events as $event) {
-            $admin = new admin($event->getGroupId());
-            $xp = new xp($event->getUserId(), $event->getGroupId());
+            $admin = new admin($event->getUserId(), $event->getGroupId());
+            $xp = new xp($event->getUserId(), $event->getGroupId(), $bot);
             $text = new textParser($event->getText());
             $reply = null;
             if ($event->isUserEvent()) {
@@ -52,6 +52,7 @@ $app->post('/bot', function (Request $req, Response $res) use ($bot) {
             }
             if ($event->isGroupEvent()) {
                 switch ($text->textKecil) {
+                    //Gacha
                     case 'gacha':
                         $reply = gacha::gachaSatu();
                         break;
@@ -59,10 +60,18 @@ $app->post('/bot', function (Request $req, Response $res) use ($bot) {
                     case 'gacha kontol':
                         $reply = gacha::gachaBanyak();
                         break;
+                    //XP
                     case 'xp':
-                        $reply = $xp->checkXP();
+                        $reply = $xp->getXP();
                         break;
-                    case 'grp':
+                    case 'lb':
+                        $reply = $xp->getLeaderboard();
+                        break;
+                    //Admin
+                    case 'gid':
+                        $reply = $admin->sendGroupID();
+                        break;
+                    case 'uid':
                         $reply = $admin->sendGroupID();
                         break;
                 }

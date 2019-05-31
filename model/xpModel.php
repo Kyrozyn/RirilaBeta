@@ -41,8 +41,18 @@ class xpModel extends objectDB
         }
     }
 
-    function checkXP()
+    function getXP()
     {
         return $this->db->get("xp", "xp", ["userid" => $this->userid]);
+    }
+
+    function getLeaderboard()
+    {
+        return $this->db->select("xp", ["userid", "xp"], ["ORDER" => ["xp" => "DESC"], "LIMIT" => 10]);
+    }
+
+    function getGroupLeaderboard()
+    {
+        return $this->db->select("xp", ["userid", "xp"], ["ORDER" => ["xp" => "DESC"], "LIMIT" => 10, "groupid" => $this->groupid]);
     }
 }

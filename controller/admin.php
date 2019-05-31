@@ -8,14 +8,16 @@ use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
 
 class admin
 {
+    private $userid;
     private $groupid;
 
     /**
      * admin constructor.
      * @param $groupid
      */
-    public function __construct($groupid)
+    public function __construct($userid, $groupid)
     {
+        $this->userid = $userid;
         $this->groupid = $groupid;
     }
 
@@ -23,6 +25,12 @@ class admin
     function sendGroupID()
     {
         $reply = new TextMessageBuilder($this->groupid);
+        return $reply;
+    }
+
+    function sendUserID()
+    {
+        $reply = new TextMessageBuilder($this->userid);
         return $reply;
     }
 
