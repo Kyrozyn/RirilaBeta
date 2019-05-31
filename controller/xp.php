@@ -65,6 +65,7 @@ class xp
             $nama = $json['displayName'];
             if (empty($nama)) {
                 $nama = "????";
+                $warn = new TextMessageBuilder("Hmm... Apa kalian semua sudah add aku? Aku tidak bisa menampilkan namamu :(");
             }
             $balas = $balas . $angka . ". " . $nama . " : " . $id["xp"];
             if ($angka < 10) {
@@ -76,6 +77,9 @@ class xp
         $reply = new MultiMessageBuilder();
         $reply->add($satu);
         $reply->add($dua);
+        if (isset($warn)) {
+            $reply->add($warn);
+        }
         return $reply;
     }
 }
