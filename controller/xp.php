@@ -41,4 +41,9 @@ class xp
         $reply = new TextMessageBuilder("XP kamu = " . $xp);
         return $reply;
     }
+
+    public function addXP()
+    {
+        $this->model->addXP();
+    }
 }
