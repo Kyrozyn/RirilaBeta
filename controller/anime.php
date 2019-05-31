@@ -21,6 +21,7 @@ class anime
 
     public function searchAnime($title, $page = 1)
     {
+        file_put_contents('php://stderr', 'Masuk Search Anime');
         $halaman = $page;
         $batas = 4;
         if (empty($halaman)) {
@@ -30,6 +31,7 @@ class anime
             $posisi = ($halaman - 1) * $batas;
         }
         $result = $this->jikan->AnimeSearch($title)->getResults();
+        file_put_contents('php://stderr', 'Result Search Anime' . print_r($result, 1));
 //        $Carousel = new ImageCarouselTemplateBuilder([
 //            new ImageCarouselColumnTemplateBuilder($result[$posisi]->getImageUrl(), new UriTemplateActionBuilder($result[$posisi]->getTitle(), $result[$posisi]->getUrl())),
 //            new ImageCarouselColumnTemplateBuilder($result[$posisi + 1]->getImageUrl(), new UriTemplateActionBuilder($result[$posisi + 1]->getTitle(), $result[$posisi + 1]->getUrl())),
