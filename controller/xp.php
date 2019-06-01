@@ -118,7 +118,7 @@ class xp
         $reply = new MultiMessageBuilder();
         $reply->add($satu);
         $reply->add($dua);
-        $reply->add($len);
+        $reply->add($t);
         if (isset($warn)) {
             $reply->add($warn);
         }
