@@ -2,8 +2,6 @@
 
 namespace Model;
 
-use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
-
 class xpModel extends objectDB
 {
     private $userid;
@@ -62,12 +60,7 @@ class xpModel extends objectDB
 
     public function getLeaderboard()
     {
-        global $bot;
-        $db = $this->db->select('user', ['userid', 'xp'], ['ORDER' => ['xp' => 'DESC'], 'LIMIT' => 10]);
-        if (!$db) {
-            $bot->pushMessage("U6f3a4276a41f0a7eb3310fb2f43b4419", new TextMessageBuilder(print_r($this->db->error(), 1)));
-        }
-        return $db;
+        return $this->db->select('user', ['userid', 'xp'], ['ORDER' => ['xp' => 'DESC'], 'LIMIT' => 10]);
     }
 
     public function getGroupLeaderboard()
