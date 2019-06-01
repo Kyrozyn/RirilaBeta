@@ -53,6 +53,7 @@ class xpModel extends objectDB
         if (!$db) {
             $bot->pushMessage("U6f3a4276a41f0a7eb3310fb2f43b4419", new TextMessageBuilder(print_r($this->db->error(), 1)));
         }
+        return $db;
     }
 
     public function getGroupLeaderboard()
