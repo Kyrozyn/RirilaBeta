@@ -81,6 +81,7 @@ class xp
             if ($a != $len - 1) {
                 $balas = $balas . "\n";
             }
+            $a++;
         }
         $reply = new TextMessageBuilder($balas);
         return $reply;
