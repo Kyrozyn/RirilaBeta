@@ -42,7 +42,7 @@ class xpModel extends objectDB
 
     public function getXP()
     {
-        return $this->db->get('user', 'user', ['userid' => $this->userid]);
+        return $this->db->get('user', 'xp', ['userid' => $this->userid]);
     }
 
     public function getLeaderboard()
