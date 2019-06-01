@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Controller;
 
 use Jikan\Exception\BadResponseException;
@@ -35,12 +34,13 @@ class anime
         } else {
             $posisi = ($halaman - 1) * $batas;
         }
+
         try {
             $result = $this->jikan->AnimeSearch($title)->getResults();
         } catch (BadResponseException $e) {
-            file_put_contents('php://stderr', 'Exception : ' . $e->getMessage());
+            file_put_contents('php://stderr', 'Exception : '.$e->getMessage());
         } catch (ParserException $e) {
-            file_put_contents('php://stderr', 'Exception : ' . $e->getMessage());
+            file_put_contents('php://stderr', 'Exception : '.$e->getMessage());
         }
         ///TODO CHANGE IT TO ANOTHER THING...
         $Carousel = new ImageCarouselTemplateBuilder([
@@ -48,10 +48,10 @@ class anime
             new ImageCarouselColumnTemplateBuilder($result[$posisi + 1]->getImageUrl(), new UriTemplateActionBuilder(substr($result[$posisi + 1]->getTitle(), 0, 11), $result[$posisi + 1]->getUrl())),
             new ImageCarouselColumnTemplateBuilder($result[$posisi + 2]->getImageUrl(), new UriTemplateActionBuilder(substr($result[$posisi + 2]->getTitle(), 0, 11), $result[$posisi + 2]->getUrl())),
             new ImageCarouselColumnTemplateBuilder($result[$posisi + 3]->getImageUrl(), new UriTemplateActionBuilder(substr($result[$posisi + 3]->getTitle(), 0, 11), $result[$posisi + 3]->getUrl())),
-            new ImageCarouselColumnTemplateBuilder("https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png", new MessageTemplateActionBuilder("Next", "nim*" . $title . "*" . $nextpage))
+            new ImageCarouselColumnTemplateBuilder('https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png', new MessageTemplateActionBuilder('Next', 'nim*'.$title.'*'.$nextpage)),
         ]);
-        $reply = new TemplateMessageBuilder("Anime", $Carousel);
-        return $reply;
+        $reply = new TemplateMessageBuilder('Anime', $Carousel);
 
+        return $reply;
     }
 }

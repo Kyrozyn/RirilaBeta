@@ -92,11 +92,11 @@ $app->post('/bot', function (Request $req, Response $res) use ($bot) {
                         break;
                 }
                 $cek = $bot->replyMessage($event->getReplyToken(), $reply);
-                file_put_contents('php://stderr', print_r($cek->getJSONDecodedBody(),1));
+                file_put_contents('php://stderr', print_r($cek->getJSONDecodedBody(), 1));
             }
         }
     } catch (Exception $e) {
-        file_put_contents('php://stderr', 'Exception : ' . $e->getMessage());
+        file_put_contents('php://stderr', 'Exception : '.$e->getMessage());
     }
 
     return true;
