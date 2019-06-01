@@ -93,7 +93,7 @@ class xp
         $balas = null;
         foreach ($this->model->getGroupLeaderboard() as $id) {
             $angka = $angka + 1;
-            $profile = $this->bot->getProfile($id['userid']);
+            $profile = $this->bot->getGroupMemberProfile($id['groupid'], $id['userid']);
             $json = $profile->getJSONDecodedBody();
             $nama = $json['displayName'];
             if (empty($nama)) {
