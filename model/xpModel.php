@@ -17,19 +17,19 @@ class xpModel extends objectDB
 
     public function hasXP()
     {
-        return $this->db->has('xp', ['userid' => $this->userid]);
+        return $this->db->has('user', ['userid' => $this->userid]);
     }
 
     public function addXP()
     {
         if ($this->hasXP()) {
-            $xpa = $this->db->get('xp', 'xp', ['userid' => $this->userid]);
+            $xpa = $this->db->get('user', 'user', ['userid' => $this->userid]);
             $xpp = rand(1, 2);
             $xpb = $xpa + $xpp;
 
-            return $this->db->update('xp', ['xp' => $xpb, 'groupid' => $this->groupid], ['userid' => $this->userid]);
+            return $this->db->update('user', ['user' => $xpb, 'groupid' => $this->groupid], ['userid' => $this->userid]);
         } else {
-            $a = $this->db->insert('xp', ['userid' => $this->userid, 'groupid' => $this->groupid]);
+            $a = $this->db->insert('user', ['userid' => $this->userid, 'groupid' => $this->groupid]);
             if ($a) {
                 $this->addXP();
 
@@ -42,16 +42,16 @@ class xpModel extends objectDB
 
     public function getXP()
     {
-        return $this->db->get('xp', 'xp', ['userid' => $this->userid]);
+        return $this->db->get('user', 'user', ['userid' => $this->userid]);
     }
 
     public function getLeaderboard()
     {
-        return $this->db->select('xp', ['userid', 'xp'], ['ORDER' => ['xp' => 'DESC'], 'LIMIT' => 10]);
+        return $this->db->select('user', ['userid', 'user'], ['ORDER' => ['user' => 'DESC'], 'LIMIT' => 10]);
     }
 
     public function getGroupLeaderboard()
     {
-        return $this->db->select('xp', ['userid', 'xp'], ['ORDER' => ['xp' => 'DESC'], 'LIMIT' => 10, 'groupid' => $this->groupid]);
+        return $this->db->select('user', ['userid', 'user'], ['ORDER' => ['user' => 'DESC'], 'LIMIT' => 10, 'groupid' => $this->groupid]);
     }
 }

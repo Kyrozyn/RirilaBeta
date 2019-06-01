@@ -35,7 +35,7 @@ $bot = new LINEBot($httpClient, ['channelSecret' => $channel_secret]);
 $app->post('/bot', function (Request $req, Response $res) use ($bot) {
     try {
         //Lets make a log..
-        file_put_contents('php://stderr', 'Body : '.file_get_contents('php://input'));
+        syslog(LOG_WARNING, 'Body : ' . file_get_contents('php://input'));
 
         //Doing Magic
         $signature = $req->getHeader(HTTPHeader::LINE_SIGNATURE);
