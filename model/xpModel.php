@@ -22,14 +22,28 @@ class xpModel extends objectDB
         return $this->db->has('user', ['userid' => $this->userid]);
     }
 
+    private function isUpdated()
+    {
+        return $this->db->get('user', 'isUpdated', ['userid' => $this->userid]);
+    }
+
+    private function Update()
+    {
+        return $this->db->update('user', ['isUpdated' => true], ['userid' => $this->userid]);
+    }
+
     public function addXP()
     {
         if ($this->hasXP()) {
-            $xpa = $this->db->get('user', 'xp', ['userid' => $this->userid]);
-            $xpp = rand(1, 2);
-            $xpb = $xpa + $xpp;
-
-            return $this->db->update('user', ['xp' => $xpb, 'groupid' => $this->groupid], ['userid' => $this->userid]);
+            if (!$this->isUpdated()) {
+                $xpa = $this->db->get('user', 'xp', ['userid' => $this->userid]);
+                $xpp = rand(1, 2);
+                $xpb = $xpa + $xpp;
+                $this->db->update('user', ['xp' => $xpb, 'groupid' => $this->groupid], ['userid' => $this->userid]);
+                return $this->Update();
+            } else {
+                return true;
+            }
         } else {
             $a = $this->db->insert('user', ['userid' => $this->userid, 'groupid' => $this->groupid]);
             if ($a) {
