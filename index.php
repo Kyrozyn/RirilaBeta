@@ -15,6 +15,7 @@ foreach (glob('model/*.php') as $filename) {
 }
 //
 use Controller\admin;
+use Controller\anime;
 use Controller\gacha;
 use Controller\textParser;
 use Controller\xp;
@@ -34,8 +35,6 @@ $bot = new LINEBot($httpClient, ['channelSecret' => $channel_secret]);
 $app->post('/bot', function (Request $req, Response $res) use ($bot) {
     try {
         //Lets make a log..
-        file_put_contents('php://stderr', 'Body : '.file_get_contents('php://input'));
-
         //Doing Magic
         $signature = $req->getHeader(HTTPHeader::LINE_SIGNATURE);
         $result = null;
@@ -46,6 +45,7 @@ $app->post('/bot', function (Request $req, Response $res) use ($bot) {
         foreach ($events as $event) {
             $admin = new admin($event->getUserId(), $event->getGroupId());
             $xp = new xp($event->getUserId(), $event->getGroupId(), $bot);
+            $anime = new anime();
             $text = new textParser($event->getText());
             $reply = null;
             if ($event->isUserEvent()) {
@@ -68,15 +68,29 @@ $app->post('/bot', function (Request $req, Response $res) use ($bot) {
                     case 'lb':
                         $reply = $xp->getLeaderboard();
                         break;
+                    case 'lbg':
+                        $reply = $xp->getGroupLeaderBoard();
+                        break;
                     //Admin
                     case 'gid':
                         $reply = $admin->sendGroupID();
                         break;
                     case 'uid':
-                        $reply = $admin->sendGroupID();
+                        $reply = $admin->sendUserID();
                         break;
                 }
-                $bot->replyMessage($event->getReplyToken(), $reply);
+                switch (strtolower($text->textBintang[0])) {
+                    case 'anime':
+                    case 'nim':
+                        if (isset($text->textBintang[2])) {
+                            $reply = $anime->searchAnime($text->textBintang[1], $text->textBintang[2]);
+                        } else {
+                            $reply = $anime->searchAnime($text->textBintang[1]);
+                        }
+                        break;
+                }
+                $cek = $bot->replyMessage($event->getReplyToken(), $reply);
+                file_put_contents('php://stderr', print_r($cek->getJSONDecodedBody(), 1));
             }
         }
     } catch (Exception $e) {
@@ -84,13 +98,6 @@ $app->post('/bot', function (Request $req, Response $res) use ($bot) {
     }
 
     return true;
-});
-
-$app->get('/send/{groupid}/{message}', function (Request $req, Response $res, $args) use ($bot) {
-    $groupid = $args['groupid'];
-    $message = $args['message'];
-    $text = admin::push($message);
-    $bot->pushMessage($groupid, $text);
 });
 
 try {

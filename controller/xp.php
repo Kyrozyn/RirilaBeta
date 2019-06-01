@@ -3,7 +3,6 @@
 namespace Controller;
 
 use LINE\LINEBot;
-use LINE\LINEBot\MessageBuilder\MultiMessageBuilder;
 use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
 use Model\xpModel;
 
@@ -63,8 +62,11 @@ class xp
     {
         $header = '***Leaderboard***';
         $angka = 0;
+        $a = 0;
+        $array = $this->model->getLeaderboard();
+        $len = count($array);
         $balas = null;
-        foreach ($this->model->getLeaderboard() as $id) {
+        foreach ($array as $id) {
             $angka = $angka + 1;
             $profile = $this->bot->getProfile($id['userid']);
             $json = $profile->getJSONDecodedBody();
@@ -72,16 +74,16 @@ class xp
             if (empty($nama)) {
                 $nama = '????';
             }
+            if ($a == 0) {
+                $balas = $balas.$header."\n";
+            }
             $balas = $balas.$angka.'. '.$nama.' : '.$id['xp'];
-            if ($angka < 10) {
+            if ($a != $len - 1) {
                 $balas = $balas."\n";
             }
+            $a++;
         }
-        $satu = new TextMessageBuilder($header);
-        $dua = new TextMessageBuilder($balas);
-        $reply = new MultiMessageBuilder();
-        $reply->add($satu);
-        $reply->add($dua);
+        $reply = new TextMessageBuilder($balas);
 
         return $reply;
     }
@@ -90,29 +92,25 @@ class xp
     {
         $header = '***Group Leaderboard***';
         $angka = 0;
+        $a = 0;
+        $array = $this->model->getGroupLeaderboard();
+        $len = count($array);
         $balas = null;
-        foreach ($this->model->getGroupLeaderboard() as $id) {
+        foreach ($array as $id) {
             $angka = $angka + 1;
-            $profile = $this->bot->getProfile($id['userid']);
+            $profile = $this->bot->getGroupMemberProfile($id['groupid'], $id['userid']);
             $json = $profile->getJSONDecodedBody();
             $nama = $json['displayName'];
-            if (empty($nama)) {
-                $nama = '????';
-                $warn = new TextMessageBuilder('Hmm... Apa kalian semua sudah add aku? Aku tidak bisa menampilkan namamu :(');
+            if ($a == 0) {
+                $balas = $balas.$header."\n";
             }
             $balas = $balas.$angka.'. '.$nama.' : '.$id['xp'];
-            if ($angka < 10) {
+            if ($a != $len - 1) {
                 $balas = $balas."\n";
             }
+            $a++;
         }
-        $satu = new TextMessageBuilder($header);
-        $dua = new TextMessageBuilder($balas);
-        $reply = new MultiMessageBuilder();
-        $reply->add($satu);
-        $reply->add($dua);
-        if (isset($warn)) {
-            $reply->add($warn);
-        }
+        $reply = new TextMessageBuilder($balas);
 
         return $reply;
     }
