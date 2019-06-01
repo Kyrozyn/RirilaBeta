@@ -90,8 +90,11 @@ class xp
     {
         $header = '***Group Leaderboard***';
         $angka = 0;
+        $a = 0;
+        $array = $this->model->getGroupLeaderboard();
+        $len = count($array);
         $balas = null;
-        foreach ($this->model->getGroupLeaderboard() as $id) {
+        foreach ($array as $id) {
             $angka = $angka + 1;
             $profile = $this->bot->getGroupMemberProfile($id['groupid'], $id['userid']);
             $json = $profile->getJSONDecodedBody();
@@ -101,9 +104,10 @@ class xp
                 $warn = new TextMessageBuilder('Hmm... Apa kalian semua sudah add aku? Aku tidak bisa menampilkan namamu :(');
             }
             $balas = $balas.$angka.'. '.$nama.' : '.$id['xp'];
-            if ($angka < 10) {
+            if (!$a == $len - 1) {
                 $balas = $balas."\n";
             }
+            $a++;
         }
         $satu = new TextMessageBuilder($header);
         $dua = new TextMessageBuilder($balas);
