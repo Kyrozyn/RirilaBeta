@@ -88,7 +88,7 @@ class xp
 
     public function getGroupLeaderBoard()
     {
-        $header = '***Group Leaderboard***\n';
+        $header = '***Group Leaderboard***';
         $angka = 0;
         $a = 0;
         $array = $this->model->getGroupLeaderboard();
@@ -100,14 +100,14 @@ class xp
             $json = $profile->getJSONDecodedBody();
             $nama = $json['displayName'];
             if ($a == 0) {
-                $balas = $balas . $header;
+                $balas = $balas . $header . "\n";
             }
             if (empty($nama)) {
                 $nama = '????';
                 $warn = new TextMessageBuilder('Hmm... Apa kalian semua sudah add aku? Aku tidak bisa menampilkan namamu :(');
             }
             $balas = $balas.$angka.'. '.$nama.' : '.$id['xp'];
-            if ($a == $len - 1) {
+            if (!$a == $len - 1) {
                 $balas = $balas."\n";
             }
             $a++;
