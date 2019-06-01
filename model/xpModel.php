@@ -47,11 +47,11 @@ class xpModel extends objectDB
 
     public function getLeaderboard()
     {
-        return $this->db->select('user', ['userid', 'user'], ['ORDER' => ['user' => 'DESC'], 'LIMIT' => 10]);
+        return $this->db->select('user', ['userid', 'xp'], ['ORDER' => ['user' => 'DESC'], 'LIMIT' => 10]);
     }
 
     public function getGroupLeaderboard()
     {
-        return $this->db->select('user', ['userid', 'user'], ['ORDER' => ['user' => 'DESC'], 'LIMIT' => 10, 'groupid' => $this->groupid]);
+        return $this->db->select('user', ['userid', 'xp'], ['ORDER' => ['user' => 'DESC'], 'LIMIT' => 10, 'groupid' => $this->groupid]);
     }
 }
