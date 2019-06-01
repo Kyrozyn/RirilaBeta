@@ -107,8 +107,8 @@ class xp
                 $warn = new TextMessageBuilder('Hmm... Apa kalian semua sudah add aku? Aku tidak bisa menampilkan namamu :(');
             }
             $balas = $balas.$angka.'. '.$nama.' : '.$id['xp'];
-            if (!$a == $len - 1) {
-                $balas = $balas."\n";
+            if ($a != $len - 1) {
+                $balas = $balas . "\n";
             }
             $a++;
         }
