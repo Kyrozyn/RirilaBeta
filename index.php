@@ -100,7 +100,6 @@ $app->post('/bot', function (Request $req, Response $res) use ($bot) {
     return true;
 });
 
-
 try {
     $app->run();
 } catch (Exception $e) {

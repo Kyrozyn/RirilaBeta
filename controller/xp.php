@@ -75,15 +75,16 @@ class xp
                 $nama = '????';
             }
             if ($a == 0) {
-                $balas = $balas . $header . "\n";
+                $balas = $balas.$header."\n";
             }
             $balas = $balas.$angka.'. '.$nama.' : '.$id['xp'];
             if ($a != $len - 1) {
-                $balas = $balas . "\n";
+                $balas = $balas."\n";
             }
             $a++;
         }
         $reply = new TextMessageBuilder($balas);
+
         return $reply;
     }
 
@@ -101,15 +102,16 @@ class xp
             $json = $profile->getJSONDecodedBody();
             $nama = $json['displayName'];
             if ($a == 0) {
-                $balas = $balas . $header . "\n";
+                $balas = $balas.$header."\n";
             }
             $balas = $balas.$angka.'. '.$nama.' : '.$id['xp'];
             if ($a != $len - 1) {
-                $balas = $balas . "\n";
+                $balas = $balas."\n";
             }
             $a++;
         }
         $reply = new TextMessageBuilder($balas);
+
         return $reply;
     }
 }

@@ -23,7 +23,7 @@ class objectDB
                 'database_type' => getenv('DATABASE_TYPE'),
                 'database_name' => getenv('DATABASE_NAME'),
                 'server'        => getenv('DATABASE_SERVER'),
-                'port' => getenv('DATABASE_PORT'),
+                'port'          => getenv('DATABASE_PORT'),
                 'username'      => getenv('DATABASE_USERNAME'),
                 'password'      => getenv('DATABASE_PASSWORD'),
             ]);
