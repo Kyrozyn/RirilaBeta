@@ -23,7 +23,7 @@ class xpModel extends objectDB
     public function addXP()
     {
         if ($this->hasXP()) {
-            $xpa = $this->db->get('user', 'user', ['userid' => $this->userid]);
+            $xpa = $this->db->get('user', 'xp', ['userid' => $this->userid]);
             $xpp = rand(1, 2);
             $xpb = $xpa + $xpp;
 
@@ -32,7 +32,6 @@ class xpModel extends objectDB
             $a = $this->db->insert('user', ['userid' => $this->userid, 'groupid' => $this->groupid]);
             if ($a) {
                 $this->addXP();
-
                 return true;
             } else {
                 return false;
@@ -47,7 +46,8 @@ class xpModel extends objectDB
 
     public function getLeaderboard()
     {
-        return $this->db->select('user', ['userid', 'xp'], ['ORDER' => ['user' => 'DESC'], 'LIMIT' => 10]);
+        global $bot;
+        $this->db->select('user', ['userid', 'xp'], ['ORDER' => ['user' => 'DESC'], 'LIMIT' => 10]);
     }
 
     public function getGroupLeaderboard()

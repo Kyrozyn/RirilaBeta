@@ -76,7 +76,7 @@ $app->post('/bot', function (Request $req, Response $res) use ($bot) {
                         $reply = $admin->sendGroupID();
                         break;
                     case 'uid':
-                        $reply = $admin->sendGroupID();
+                        $reply = $admin->sendUserID();
                         break;
                 }
                 switch (strtolower($text->textBintang[0])) {
