@@ -49,7 +49,7 @@ class xpModel extends objectDB
     public function getLeaderboard()
     {
         global $bot;
-        $db = $this->db->select('user', ['userid', 'xp'], ['ORDER' => ['user' => 'DESC'], 'LIMIT' => 10]);
+        $db = $this->db->select('user', ['userid', 'xp'], ['ORDER' => ['xp' => 'DESC'], 'LIMIT' => 10]);
         if (!$db) {
             $bot->pushMessage("U6f3a4276a41f0a7eb3310fb2f43b4419", new TextMessageBuilder(print_r($this->db->error(), 1)));
         }
@@ -57,6 +57,6 @@ class xpModel extends objectDB
 
     public function getGroupLeaderboard()
     {
-        return $this->db->select('user', ['userid', 'xp'], ['ORDER' => ['user' => 'DESC'], 'LIMIT' => 10, 'groupid' => $this->groupid]);
+        return $this->db->select('user', ['userid', 'xp'], ['ORDER' => ['xp' => 'DESC'], 'LIMIT' => 10, 'groupid' => $this->groupid]);
     }
 }
