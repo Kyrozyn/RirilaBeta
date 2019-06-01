@@ -114,9 +114,11 @@ class xp
         }
         $satu = new TextMessageBuilder($header);
         $dua = new TextMessageBuilder($balas);
+        $t = new TextMessageBuilder("len = " . $len);
         $reply = new MultiMessageBuilder();
         $reply->add($satu);
         $reply->add($dua);
+        $reply->add($len);
         if (isset($warn)) {
             $reply->add($warn);
         }
