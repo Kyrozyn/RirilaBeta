@@ -27,7 +27,7 @@ class xpModel extends objectDB
             $xpp = rand(1, 2);
             $xpb = $xpa + $xpp;
 
-            return $this->db->update('user', ['user' => $xpb, 'groupid' => $this->groupid], ['userid' => $this->userid]);
+            return $this->db->update('user', ['xp' => $xpb, 'groupid' => $this->groupid], ['userid' => $this->userid]);
         } else {
             $a = $this->db->insert('user', ['userid' => $this->userid, 'groupid' => $this->groupid]);
             if ($a) {
