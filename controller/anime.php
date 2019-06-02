@@ -60,7 +60,7 @@ class anime
             $action_builder = [new UriTemplateActionBuilder("More Info", $link)];
             $care[$i] = new CarouselColumnTemplateBuilder($title, $synopsis, $imageUrl, $action_builder);
         }
-        $care[4] = new CarouselColumnTemplateBuilder("Next", null, 'https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png', [new MessageTemplateActionBuilder('Next', 'nim*' . $title . '*' . $nextpage)]);
+        $care[4] = new CarouselColumnTemplateBuilder("~~~", "Next Result", 'https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png', [new MessageTemplateActionBuilder('Next', 'nim*' . $title . '*' . $nextpage)]);
         $carousel2 = new CarouselTemplateBuilder([$care[0], $care[1], $care[2], $care[3], $care[4]]);
 
         $reply = new TemplateMessageBuilder('Anime', $carousel2);
