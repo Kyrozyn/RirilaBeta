@@ -113,7 +113,7 @@ class anime
                 $action_builder = new UriTemplateActionBuilder($namee, $link);
                 $care[$i] = new ImageCarouselColumnTemplateBuilder($imageUrl, $action_builder);
             }
-            $care[4] = new ImageCarouselColumnTemplateBuilder('https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png', new MessageTemplateActionBuilder('Next', 'nim*' . $name . '*' . $nextpage));
+            $care[4] = new ImageCarouselColumnTemplateBuilder('https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png', new MessageTemplateActionBuilder('Next', 'chara*' . $name . '*' . $nextpage));
             $carousel2 = new ImageCarouselTemplateBuilder([$care[0], $care[1], $care[2], $care[3], $care[4]]);
 
             $reply = new TemplateMessageBuilder('Anime', $carousel2);
