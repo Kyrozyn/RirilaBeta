@@ -105,18 +105,22 @@ class anime
 //            new ImageCarouselColumnTemplateBuilder($result[$posisi + 3]->getImageUrl(), new UriTemplateActionBuilder(substr($result[$posisi + 3]->getTitle(), 0, 11), $result[$posisi + 3]->getUrl())),
 //            new ImageCarouselColumnTemplateBuilder('https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png', new MessageTemplateActionBuilder('Next', 'nim*'.$title.'*'.$nextpage)),
 //        ]);
-            $care = [];
-            for ($i = 0; $i <= 3; $i++) {
-                $imageUrl = substr($result[$posisi + $i]->getImageUrl(), 0, 999);
-                $namee = substr($result[$posisi + $i]->getName(), 0, 11);
-                $link = substr($result[$posisi + $i]->getUrl(), 0, 999);
-                $action_builder = new UriTemplateActionBuilder($namee, $link);
-                $care[$i] = new ImageCarouselColumnTemplateBuilder($imageUrl, $action_builder);
-            }
-            $care[4] = new ImageCarouselColumnTemplateBuilder('https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png', new MessageTemplateActionBuilder('Next', 'chara*' . $name . '*' . $nextpage));
-            $carousel2 = new ImageCarouselTemplateBuilder([$care[0], $care[1], $care[2], $care[3], $care[4]]);
+            if (!empty($result)) {
+                $care = [];
+                for ($i = 0; $i <= 3; $i++) {
+                    $imageUrl = substr($result[$posisi + $i]->getImageUrl(), 0, 999);
+                    $namee = substr($result[$posisi + $i]->getName(), 0, 11);
+                    $link = substr($result[$posisi + $i]->getUrl(), 0, 999);
+                    $action_builder = new UriTemplateActionBuilder($namee, $link);
+                    $care[$i] = new ImageCarouselColumnTemplateBuilder($imageUrl, $action_builder);
+                }
+                $care[4] = new ImageCarouselColumnTemplateBuilder('https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png', new MessageTemplateActionBuilder('Next', 'chara*' . $name . '*' . $nextpage));
+                $carousel2 = new ImageCarouselTemplateBuilder([$care[0], $care[1], $care[2], $care[3], $care[4]]);
 
-            $reply = new TemplateMessageBuilder('Anime', $carousel2);
+                $reply = new TemplateMessageBuilder('Anime', $carousel2);
+            } else {
+                $reply = new TextMessageBuilder("Character tidak ditemukan :(");
+            }
         }
         return $reply;
     }
