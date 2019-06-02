@@ -11,7 +11,6 @@ class objectDB
 
     /**
      * objectDB constructor.
-     *
      */
     public function __construct()
     {
