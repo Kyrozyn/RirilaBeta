@@ -49,14 +49,7 @@ class anime
             } catch (ParserException $e) {
                 file_put_contents('php://stderr', 'Exception : ' . $e->getMessage());
             }
-            ///TODO CHANGE IT TO ANOTHER THING...
-//        $Carousel = new ImageCarouselTemplateBuilder([
-//            new ImageCarouselColumnTemplateBuilder($result[$posisi]->getImageUrl(), new UriTemplateActionBuilder(substr($result[$posisi]->getTitle(), 0, 11), $result[$posisi]->getUrl())),
-//            new ImageCarouselColumnTemplateBuilder($result[$posisi + 1]->getImageUrl(), new UriTemplateActionBuilder(substr($result[$posisi + 1]->getTitle(), 0, 11), $result[$posisi + 1]->getUrl())),
-//            new ImageCarouselColumnTemplateBuilder($result[$posisi + 2]->getImageUrl(), new UriTemplateActionBuilder(substr($result[$posisi + 2]->getTitle(), 0, 11), $result[$posisi + 2]->getUrl())),
-//            new ImageCarouselColumnTemplateBuilder($result[$posisi + 3]->getImageUrl(), new UriTemplateActionBuilder(substr($result[$posisi + 3]->getTitle(), 0, 11), $result[$posisi + 3]->getUrl())),
-//            new ImageCarouselColumnTemplateBuilder('https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png', new MessageTemplateActionBuilder('Next', 'nim*'.$title.'*'.$nextpage)),
-//        ]);
+
             $care = null;
             $builder = [];
             for ($i = 0; $i <= 3; $i++) {
@@ -104,14 +97,7 @@ class anime
             } catch (ParserException $e) {
                 file_put_contents('php://stderr', 'Exception : ' . $e->getMessage());
             }
-            ///TODO CHANGE IT TO ANOTHER THING...
-//        $Carousel = new ImageCarouselTemplateBuilder([
-//            new ImageCarouselColumnTemplateBuilder($result[$posisi]->getImageUrl(), new UriTemplateActionBuilder(substr($result[$posisi]->getTitle(), 0, 11), $result[$posisi]->getUrl())),
-//            new ImageCarouselColumnTemplateBuilder($result[$posisi + 1]->getImageUrl(), new UriTemplateActionBuilder(substr($result[$posisi + 1]->getTitle(), 0, 11), $result[$posisi + 1]->getUrl())),
-//            new ImageCarouselColumnTemplateBuilder($result[$posisi + 2]->getImageUrl(), new UriTemplateActionBuilder(substr($result[$posisi + 2]->getTitle(), 0, 11), $result[$posisi + 2]->getUrl())),
-//            new ImageCarouselColumnTemplateBuilder($result[$posisi + 3]->getImageUrl(), new UriTemplateActionBuilder(substr($result[$posisi + 3]->getTitle(), 0, 11), $result[$posisi + 3]->getUrl())),
-//            new ImageCarouselColumnTemplateBuilder('https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png', new MessageTemplateActionBuilder('Next', 'nim*'.$title.'*'.$nextpage)),
-//        ]);
+
             if (!empty($result)) {
                 $care = null;
                 $builder = [];
