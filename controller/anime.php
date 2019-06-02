@@ -126,7 +126,7 @@ class anime
                         break;
                     }
                 }
-                if (array_count_values($builder) == 3) {
+                if (sizeof($builder) == 4) {
                     $bbof = new ImageCarouselColumnTemplateBuilder('https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png', new MessageTemplateActionBuilder('Next', 'chara*' . $name . '*' . $nextpage));
                     array_push($builder, $bbof);
                 }
