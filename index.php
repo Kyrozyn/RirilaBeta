@@ -90,6 +90,9 @@ $app->post('/bot', function (Request $req, Response $res) use ($bot) {
                         break;
                 }
                 $cek = $bot->replyMessage($event->getReplyToken(), $reply);
+                if (!$cek->isSucceeded()) {
+                    $bot->pushMessage(getenv('UAID_DEBUG'), new LINEBot\MessageBuilder\TextMessageBuilder(print_r($cek->getJSONDecodedBody(), 1)));
+                }
                 file_put_contents('php://stderr', print_r($cek->getJSONDecodedBody(), 1));
             }
         }
