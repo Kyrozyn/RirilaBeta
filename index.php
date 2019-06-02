@@ -88,6 +88,14 @@ $app->post('/bot', function (Request $req, Response $res) use ($bot) {
                             $reply = $anime->searchAnime($text->textBintang[1]);
                         }
                         break;
+                    case 'chara':
+                    case 'character':
+                        if (isset($text->textBintang[2])) {
+                            $reply = $anime->searchChara($text->textBintang[1], $text->textBintang[2]);
+                        } else {
+                            $reply = $anime->searchChara($text->textBintang[1]);
+                        }
+                        break;
                 }
                 $cek = $bot->replyMessage($event->getReplyToken(), $reply);
                 if (!$cek->isSucceeded()) {
