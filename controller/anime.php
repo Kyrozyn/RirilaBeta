@@ -55,7 +55,7 @@ class anime
         for ($i = 0; $i <= 3; $i++) {
             $imageUrl = substr($result[$posisi + $i]->getImageUrl(), 0, 999);
             $titlee = substr($result[$posisi + $i]->getTitle(), 0, 39);
-            $score = "☆" . $result[$posisi + $i]->getScore();
+            $score = "☆" . $result[$posisi + $i]->getScore() . "\n" . substr($result[$posisi + $i]->getSynopsis(), 0, 49);
             $link = substr($result[$posisi + $i]->getUrl(), 0, 999);
             $action_builder = [new UriTemplateActionBuilder("More Info", $link)];
             $care[$i] = new CarouselColumnTemplateBuilder($titlee, $score, $imageUrl, $action_builder);
