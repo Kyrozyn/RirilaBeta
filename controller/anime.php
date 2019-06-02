@@ -126,8 +126,10 @@ class anime
                         break;
                     }
                 }
-                $bbof = new ImageCarouselColumnTemplateBuilder('https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png', new MessageTemplateActionBuilder('Next', 'chara*' . $name . '*' . $nextpage));
-                array_push($builder, $bbof);
+                if (array_count_values($builder) == 4) {
+                    $bbof = new ImageCarouselColumnTemplateBuilder('https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png', new MessageTemplateActionBuilder('Next', 'chara*' . $name . '*' . $nextpage));
+                    array_push($builder, $bbof);
+                }
                 $carousel2 = new ImageCarouselTemplateBuilder($builder);
 
                 $reply = new TemplateMessageBuilder('Character', $carousel2);
