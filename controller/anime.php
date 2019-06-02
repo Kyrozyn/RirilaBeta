@@ -55,10 +55,10 @@ class anime
         for ($i = 0; $i <= 3; $i++) {
             $imageUrl = substr($result[$posisi + $i]->getImageUrl(), 0, 999);
             $title = substr($result[$posisi + $i]->getTitle(), 0, 39);
-            $synopsis = substr($result[$posisi + $i]->getSynopsis(), 0, 59);
+            $score = "☆" . $result[$posisi + $i]->getScore();
             $link = substr($result[$posisi + $i]->getUrl(), 0, 999);
             $action_builder = [new UriTemplateActionBuilder("More Info", $link)];
-            $care[$i] = new CarouselColumnTemplateBuilder($title, $synopsis, $imageUrl, $action_builder);
+            $care[$i] = new CarouselColumnTemplateBuilder($title, $score, $imageUrl, $action_builder);
         }
         $care[4] = new CarouselColumnTemplateBuilder("~~~", "Next Result", 'https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png', [new MessageTemplateActionBuilder('Next', 'nim*' . $title . '*' . $nextpage)]);
         $carousel2 = new CarouselTemplateBuilder([$care[0], $care[1], $care[2], $care[3], $care[4]]);
