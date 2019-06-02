@@ -76,7 +76,7 @@ class anime
 
             $carousel2 = new CarouselTemplateBuilder($builder);
 
-            $reply = new TemplateMessageBuilder('Character', $carousel2);
+            $reply = new TemplateMessageBuilder('Anime', $carousel2);
         }
         return $reply;
     }
@@ -113,18 +113,24 @@ class anime
 //            new ImageCarouselColumnTemplateBuilder('https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png', new MessageTemplateActionBuilder('Next', 'nim*'.$title.'*'.$nextpage)),
 //        ]);
             if (!empty($result)) {
-                $care = [];
+                $care = null;
+                $builder = [];
                 for ($i = 0; $i <= 3; $i++) {
                     $imageUrl = substr($result[$posisi + $i]->getImageUrl(), 0, 999);
                     $namee = substr($result[$posisi + $i]->getName(), 0, 11);
                     $link = substr($result[$posisi + $i]->getUrl(), 0, 999);
                     $action_builder = new UriTemplateActionBuilder($namee, $link);
-                    $care[$i] = new ImageCarouselColumnTemplateBuilder($imageUrl, $action_builder);
+                    $care = new ImageCarouselColumnTemplateBuilder($imageUrl, $action_builder);
+                    array_push($builder, $care);
+                    if (empty($result[$posisi + $i + 1])) {
+                        break;
+                    }
                 }
-                $care[4] = new ImageCarouselColumnTemplateBuilder('https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png', new MessageTemplateActionBuilder('Next', 'chara*' . $name . '*' . $nextpage));
-                $carousel2 = new ImageCarouselTemplateBuilder([$care[0], $care[1], $care[2], $care[3], $care[4]]);
+                $bbof = new ImageCarouselColumnTemplateBuilder('https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png', new MessageTemplateActionBuilder('Next', 'chara*' . $name . '*' . $nextpage));
+                array_push($builder, $bbof);
+                $carousel2 = new ImageCarouselTemplateBuilder($builder);
 
-                $reply = new TemplateMessageBuilder('Anime', $carousel2);
+                $reply = new TemplateMessageBuilder('Character', $carousel2);
             } else {
                 $reply = new TextMessageBuilder("Character tidak ditemukan :(");
             }
