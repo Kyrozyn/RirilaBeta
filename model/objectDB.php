@@ -11,8 +11,6 @@ class objectDB
 
     /**
      * objectDB constructor.
-     *
-     * @param $db
      */
     public function __construct()
     {

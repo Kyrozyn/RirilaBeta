@@ -88,8 +88,19 @@ $app->post('/bot', function (Request $req, Response $res) use ($bot) {
                             $reply = $anime->searchAnime($text->textBintang[1]);
                         }
                         break;
+                    case 'chara':
+                    case 'character':
+                        if (isset($text->textBintang[2])) {
+                            $reply = $anime->searchChara($text->textBintang[1], $text->textBintang[2]);
+                        } else {
+                            $reply = $anime->searchChara($text->textBintang[1]);
+                        }
+                        break;
                 }
                 $cek = $bot->replyMessage($event->getReplyToken(), $reply);
+                if (!$cek->isSucceeded()) {
+                    $bot->pushMessage(getenv('UAID_DEBUG'), new LINEBot\MessageBuilder\TextMessageBuilder(print_r($cek->getJSONDecodedBody(), 1)));
+                }
                 file_put_contents('php://stderr', print_r($cek->getJSONDecodedBody(), 1));
             }
         }
