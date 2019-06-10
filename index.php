@@ -107,7 +107,7 @@ $app->post('/bot', function (Request $req, Response $res) use ($bot) {
     } catch (Exception $e) {
         debug::debugToMe('Exception : ' . $e->getMessage());
     }
-    debug::debugToMe('Bot is doing well!');
+    //debug::debugToMe('Bot is doing well!');
     return true;
 });
 
