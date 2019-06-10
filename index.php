@@ -16,6 +16,7 @@ foreach (glob('model/*.php') as $filename) {
 //
 use Controller\admin;
 use Controller\anime;
+use Controller\debug;
 use Controller\gacha;
 use Controller\textParser;
 use Controller\xp;
@@ -99,20 +100,19 @@ $app->post('/bot', function (Request $req, Response $res) use ($bot) {
                 }
                 $cek = $bot->replyMessage($event->getReplyToken(), $reply);
                 if (!$cek->isSucceeded()) {
-                    $bot->pushMessage(getenv('UAID_DEBUG'), new LINEBot\MessageBuilder\TextMessageBuilder(print_r($cek->getJSONDecodedBody(), 1)));
+                    debug::debugToMe(print_r($cek->getJSONDecodedBody(), 1));
                 }
-                file_put_contents('php://stderr', print_r($cek->getJSONDecodedBody(), 1));
             }
         }
     } catch (Exception $e) {
-        file_put_contents('php://stderr', 'Exception : '.$e->getMessage());
+        debug::debugToMe('Exception : ' . $e->getMessage());
     }
-
+    debug::debugToMe('Bot is doing well!');
     return true;
 });
 
 try {
     $app->run();
 } catch (Exception $e) {
-    file_put_contents('php://stderr', 'Exception while run : '.$e->getMessage());
+    debug::debugToMe('Exception while run : ' . $e->getMessage());
 }
