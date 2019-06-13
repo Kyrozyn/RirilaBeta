@@ -98,6 +98,7 @@ $app->post('/bot', function (Request $req, Response $res) use ($bot) {
                         }
                         break;
                 }
+
                 $cek = $bot->replyMessage($event->getReplyToken(), $reply);
                 if (!$cek->isSucceeded()) {
                     debug::debugToMe(print_r($cek->getJSONDecodedBody(), 1));
