@@ -2,6 +2,7 @@
 
 namespace Model;
 
+use Controller\debug;
 use Exception;
 use Medoo\Medoo;
 
@@ -26,8 +27,7 @@ class objectDB
                 'password'      => getenv('DATABASE_PASSWORD'),
             ]);
         } catch (Exception $e) {
-            file_put_contents('php://stderr', $e->getMessage());
-            file_put_contents('php://stderr', "\nError on Db... Sorry...");
+            debug::debugToMe($e->getMessage());
         }
     }
 }
