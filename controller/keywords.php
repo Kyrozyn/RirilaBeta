@@ -30,9 +30,14 @@ class keywords{
     }
 
     function getKeyword($keyword){
-        if($this->model->checkIsExist($keyword, $this->groupid)){
+        if($this->model->checkKeywordExist($keyword, $this->groupid)){
             $reply = $this->model->getKeyword($keyword,$this->groupid);
             $foo = new TextMessageBuilder($reply);
+            return $foo;
+        }
+        else if ($this->model->checkImageKeywordExist($keyword, $this->groupid)){
+            $reply = $this->model->getImageKeyword($keyword,$this->groupid);
+            $foo = new LINEBot\MessageBuilder\ImageMessageBuilder($reply,$reply);
             return $foo;
         }
         else{

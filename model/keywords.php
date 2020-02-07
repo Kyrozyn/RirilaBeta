@@ -11,6 +11,7 @@ class keywords extends aobjectDB
     {
         parent::__construct();
     }
+
     function checkIsExist($keyword,$groupid){
         return $this->db->has("keywords", [
             "AND" => [
@@ -22,12 +23,44 @@ class keywords extends aobjectDB
                     "groupid" => $groupid,
                     "keyword" => $keyword
                 ]
-            ]) ? true : false;
+            ]);
+    }
+
+    function checkKeywordExist($keyword,$groupid){
+        return $this->db->has("keywords", [
+            "AND" => [
+                "groupid" => $groupid,
+                "keyword" => $keyword
+            ]
+        ]);
+    }
+
+    function checkImageKeywordExist($keyword,$groupid){
+        return $this->db->has("imagekeywords", [
+            "AND" => [
+                "groupid" => $groupid,
+                "keyword" => $keyword
+            ]
+        ]);
     }
 
     function getKeyword($keyword,$groupid){
-        if($this->checkIsExist($keyword,$groupid)){
+        if($this->checkKeywordExist($keyword,$groupid)){
             $reply = $this->db->get("keywords","reply",[
+                "AND" => [
+                    "groupid" => $groupid,
+                    "keyword" => $keyword
+                ]]);
+            return $reply;
+        }
+        else{
+            return false;
+        }
+    }
+
+    function getImageKeyword($keyword,$groupid){
+        if($this->checkImageKeywordExist($keyword,$groupid)){
+            $reply = $this->db->get("imagekeywords","reply",[
                 "AND" => [
                     "groupid" => $groupid,
                     "keyword" => $keyword
