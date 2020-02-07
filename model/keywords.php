@@ -65,7 +65,7 @@ class keywords extends aobjectDB
     function uploadImageKeyword($groupID,$messageID){
         if($this->uploadImageExist($groupID)){
             $host = $_SERVER['HTTP_HOST'];
-            $hostimage = "https://" . $host . "/content/" . $messageID;
+            $hostimage = "https://newrila.azurewebsites.net/index.php/content/" . $messageID;
             $res = Uploader::upload($hostimage,["public_id" => $messageID,"resource_type" => "auto"]);
             $url = $res['secure_url'];
             $this->db->update("imagekeywords",["reply" => $url],[
