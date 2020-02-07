@@ -67,6 +67,6 @@ class keywords{
     }
 
     function uploadImageExist(){
-        return $this->model->uploadImageExist($this->groupid) ? true : false;
+        return $this->model->uploadImageExist($this->groupid);
     }
 }

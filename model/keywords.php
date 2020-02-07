@@ -63,12 +63,7 @@ class keywords extends aobjectDB
     }
 
     function uploadImageKeyword($groupID,$messageID){
-        if($this->db->has("imageKeywords",[
-            "AND" => [
-                "groupid" => $groupID,
-                "reply" => 0
-            ]
-        ])){
+        if($this->uploadImageExist($groupID)){
             $host = $_SERVER['HTTP_HOST'];
             $hostimage = "https://" . $host . "/content/" . $messageID;
             $res = Uploader::upload($hostimage) ? true : false;
@@ -87,11 +82,11 @@ class keywords extends aobjectDB
     }
 
     function uploadImageExist($groupID){
-        return $this->db->has("imageKeywords", [
+        return $this->db->has("imagekeywords", [
             "AND" => [
                 "groupid" => $groupID,
                 "reply" => 0
             ]
-        ]) ? true : false;
+        ]);
     }
 }
