@@ -20,11 +20,11 @@ class AobjectDB
         try {
             $this->db = new Medoo([
                 'database_type' => 'mysql',
-                'database_name' => 'heroku_8936a7e2cfac410',
-                'server'        => 'us-cdbr-iron-east-04.cleardb.net',
-                'port'          => '3306',
-                'username'      => 'b8576eef192d88',
-                'password'      => 'cd90f92c',
+                'database_name' => 'ririla',
+                'server'        => '127.0.0.1',
+                'port'          => '57181',
+                'username'      => 'azure',
+                'password'      => '6#vWHD_$',
             ]);
         } catch (Exception $e) {
             debug::debugToMe($e->getMessage());
