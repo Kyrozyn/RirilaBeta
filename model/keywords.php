@@ -17,7 +17,12 @@ class keywords extends aobjectDB
                 "groupid" => $groupid,
                 "keyword" => $keyword
             ]
-        ]) ? true : false;
+        ]) OR $this->db->has("imagekeywords", [
+                "AND" => [
+                    "groupid" => $groupid,
+                    "keyword" => $keyword
+                ]
+            ]) ? true : false;
     }
 
     function getKeyword($keyword,$groupid){

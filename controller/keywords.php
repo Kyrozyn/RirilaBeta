@@ -41,18 +41,22 @@ class keywords{
     }
 
     function addImageKeyword($keyword){
-        if($this->model->uploadImageExist($this->groupid)){
-            $reply = new TextMessageBuilder("Kamu belum mengirimkan gambar untuk keyword sebelumnya.. >..<");
-            return $reply;
+        if(!$this->model->checkIsExist($keyword, $this->groupid)) {
+            if ($this->model->uploadImageExist($this->groupid)) {
+                $reply = new TextMessageBuilder("Kamu belum mengirimkan gambar untuk keyword sebelumnya.. >..<");
+                return $reply;
+            } else {
+                if ($this->model->addImageKeyword($keyword, $this->groupid)) {
+                    $reply = new TextMessageBuilder("Silahkan Kirim gambarnya!");
+                    return $reply;
+                } else {
+                    return false;
+                }
+            }
         }
         else{
-            if($this->model->addImageKeyword($keyword,$this->groupid)){
-                $reply = new TextMessageBuilder("Silahkan Kirim gambarnya!");
-                return $reply;
-            }
-            else{
-                return false;
-            }
+            $reply = new TextMessageBuilder("Maaf keyword sudah ada!");
+            return $reply;
         }
     }
 
