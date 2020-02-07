@@ -74,7 +74,7 @@ class keywords extends aobjectDB
                     "reply" => 0
                 ]
             ]);
-            error_log($hostimage);
+            file_put_contents('php://stderr', 'Debug : '.print_r($res,1));
             return true;
         }
         else{
