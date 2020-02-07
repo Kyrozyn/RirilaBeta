@@ -38,7 +38,7 @@ class xpModel extends aobjectDB
         if ($this->hasXP()) {
             if (!$this->isUpdated()) {
                 $xpa = $this->db->get('user', 'xp', ['userid' => $this->userid]);
-                debug::debugToMe(print_r($this->db->error(),1));
+                debug::debugToMe(print_r($this->db->error(), 1));
                 $xpp = rand(1, 2);
                 $xpb = $xpa + $xpp;
                 $this->db->update('user', ['xp' => $xpb, 'groupid' => $this->groupid], ['userid' => $this->userid]);
@@ -49,7 +49,7 @@ class xpModel extends aobjectDB
             }
         } else {
             $a = $this->db->insert('user', ['userid' => $this->userid, 'groupid' => $this->groupid]);
-            debug::debugToMe(print_r($this->db->error(),1));
+            debug::debugToMe(print_r($this->db->error(), 1));
             if ($a) {
                 $this->addXP();
 

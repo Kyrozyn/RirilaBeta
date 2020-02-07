@@ -6,7 +6,7 @@ use Controller\debug;
 use Exception;
 use Medoo\Medoo;
 
-class aobjectDB
+class AobjectDB
 {
     public $db;
 
