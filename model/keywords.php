@@ -71,7 +71,7 @@ class keywords extends aobjectDB
             $this->db->update("imagekeywords",["reply" => $url],[
                 "AND" => [
                     "groupid" => $groupID,
-                    "reply" => 0
+                    "reply" => '0'
                 ]
             ]);
             file_put_contents('php://stderr', 'Debug : '.print_r($res,1));
