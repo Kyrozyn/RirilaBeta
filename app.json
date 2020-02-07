@@ -25,12 +25,6 @@
     },
     "DATABASE_USERNAME": {
       "required": true
-    },
-    "DATABASE_TYPE": {
-      "required": true
-    },
-    "DATABASE_PORT": {
-      "required": true
     }
   },
   "formation": {

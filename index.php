@@ -24,9 +24,9 @@ use Slim\Http\Response;
 
 //
 Cloudinary::config([
-    'cloud_name'    => getenv("CLOUDINARY_CLOUD_NAME") ? getenv("CLOUDINARY_CLOUD_NAME") : "",
-    'api_key'       => getenv("CLOUDINARY_API_KEY") ? getenv("CLOUDINARY_API_KEY") : "",
-    'api_secret'    => getenv("CLOUDINARY_API_SECRET") ? getenv("CLOUDINARY_API_SECRET") : "",
+    'cloud_name'    => 'ririla-bot',
+    'api_key'       => '589385422775558',
+    'api_secret'    => 'lIXchV3VqoQw9JOQO4fRy4IJj8Y',
     'resource_type' => 'raw',
 ]);
 //
