@@ -3,7 +3,6 @@
 namespace Model;
 
 use Cloudinary\Uploader;
-use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
 
 class keywords extends aobjectDB
 {
@@ -72,13 +71,15 @@ class keywords extends aobjectDB
         ])){
             $host = $_SERVER['HTTP_HOST'];
             $hostimage = "https://" . $host . "/content/" . $messageID;
-            $this->db->update("imageKeywords",["reply" => $hostimage],[
+            $res = Uploader::upload($hostimage) ? true : false;
+            $url = $res['secure_url'];
+            $this->db->update("imageKeywords",["reply" => $url],[
                 "AND" => [
                     "groupid" => $groupID,
                     "reply" => 0
                 ]
             ]);
-            return Uploader::upload($hostimage) ? true : false;
+            return true;
         }
         else{
             return false;
