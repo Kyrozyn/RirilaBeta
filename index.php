@@ -3,18 +3,11 @@
 /** @noinspection PhpUnusedParameterInspection */
 /** @noinspection PhpUndefinedMethodInspection */
 require __DIR__.'/vendor/autoload.php';
-//include add class..
-foreach (glob('controller/*.php') as $filename) {
-    include $filename;
-}
+
 foreach (glob('settings/*.php') as $filename) {
     include $filename;
 }
-foreach (glob('model/*.php') as $filename) {
-    include $filename;
-}
 
-//
 use Controller\admin;
 use Controller\anime;
 use Controller\debug;
