@@ -19,6 +19,7 @@ use Controller\admin;
 use Controller\anime;
 use Controller\debug;
 use Controller\gacha;
+use Controller\keywords;
 use Controller\textParser;
 use Controller\xp;
 use LINE\LINEBot;
@@ -54,7 +55,7 @@ $app->post('/bot', function (Request $req, Response $res) use ($bot) {
         $events = $bot->parseEventRequest($req->getBody(), $signature[0]);
         foreach ($events as $event) {
             //Message Event
-            $keywords = new \Controller\keywords($event->getUserId(), $event->getGroupId(), $bot);
+            $keywords = new keywords($event->getUserId(), $event->getGroupId(), $bot);
             if ($event->getType() == 'message') {
                 if ($event->getMessageType() == 'text') {
                     $admin = new admin($event->getUserId(), $event->getGroupId());
@@ -92,42 +93,45 @@ $app->post('/bot', function (Request $req, Response $res) use ($bot) {
                             case 'uid':
                                 $reply = $admin->sendUserID();
                                 break;
+                            default :
+                                switch (strtolower($text->textBintang[0])) {
+                                    case 'anime':
+                                    case 'nim':
+                                        if (isset($text->textBintang[2])) {
+                                            $reply = $anime->searchAnime($text->textBintang[1], $text->textBintang[2]);
+                                        } else {
+                                            $reply = $anime->searchAnime($text->textBintang[1]);
+                                        }
+                                        break;
+                                    case 'chara':
+                                    case 'character':
+                                        if (isset($text->textBintang[2])) {
+                                            $reply = $anime->searchChara($text->textBintang[1], $text->textBintang[2]);
+                                        } else {
+                                            $reply = $anime->searchChara($text->textBintang[1]);
+                                        }
+                                        break;
+                                    case 'add':
+                                        if (isset($text->textBintang[1]) and isset($text->textBintang[2])) {
+                                            $reply = $keywords->addKeyword($text->textBintang[1], $text->textBintang[2]);
+                                        } else {
+                                            $reply = new LINEBot\MessageBuilder\TextMessageBuilder('Mohon isi keyword sama replynya ya ^_^');
+                                        }
+                                        break;
+                                    case 'addpic':
+                                        if (isset($text->textBintang[1])) {
+                                            $reply = $keywords->addImageKeyword($text->textBintang[1]);
+                                        } else {
+                                            $reply = new LINEBot\MessageBuilder\TextMessageBuilder('Mohon isi keywordnya ya ^_^');
+                                        }
+                                        break;
+                                    default:
+                                        $reply = $keywords->getKeyword($text->textKecil);
+                                        break;
+                                }
+                                break;
                         }
-                        switch (strtolower($text->textBintang[0])) {
-                            case 'anime':
-                            case 'nim':
-                                if (isset($text->textBintang[2])) {
-                                    $reply = $anime->searchAnime($text->textBintang[1], $text->textBintang[2]);
-                                } else {
-                                    $reply = $anime->searchAnime($text->textBintang[1]);
-                                }
-                                break;
-                            case 'chara':
-                            case 'character':
-                                if (isset($text->textBintang[2])) {
-                                    $reply = $anime->searchChara($text->textBintang[1], $text->textBintang[2]);
-                                } else {
-                                    $reply = $anime->searchChara($text->textBintang[1]);
-                                }
-                                break;
-                            case 'add':
-                                if (isset($text->textBintang[1]) and isset($text->textBintang[2])) {
-                                    $reply = $keywords->addKeyword($text->textBintang[1], $text->textBintang[2]);
-                                } else {
-                                    $reply = new LINEBot\MessageBuilder\TextMessageBuilder('Mohon isi keyword sama replynya ya ^_^');
-                                }
-                                break;
-                            case 'addpic':
-                                if (isset($text->textBintang[1])) {
-                                    $reply = $keywords->addImageKeyword($text->textBintang[1]);
-                                } else {
-                                    $reply = new LINEBot\MessageBuilder\TextMessageBuilder('Mohon isi keywordnya ya ^_^');
-                                }
-                                break;
-                            default:
-                                $reply = $keywords->getKeyword($text->textKecil);
-                                break;
-                        }
+
                         if (!empty($reply)) {
                             $cek = $bot->replyMessage($event->getReplyToken(), $reply);
                             if (!$cek->isSucceeded()) {
