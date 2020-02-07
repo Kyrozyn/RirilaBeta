@@ -73,10 +73,10 @@ $app->post('/bot', function (Request $req, Response $res) use ($bot) {
                             case 'xp':
                                 $reply = $xp->getXP();
                                 break;
-                            case 'lb':
+                            case 'lbg':
                                 $reply = $xp->getLeaderboard();
                                 break;
-                            case 'lbg':
+                            case 'lb':
                                 $reply = $xp->getGroupLeaderBoard();
                                 break;
                             //Admin
