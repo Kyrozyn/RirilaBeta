@@ -86,7 +86,7 @@ class keywords extends aobjectDB
         return $this->db->has("imagekeywords", [
             "AND" => [
                 "groupid" => $groupID,
-                "reply" => 0
+                "reply" => '0'
             ]
         ]);
     }
