@@ -74,7 +74,7 @@ class keywords extends aobjectDB
                     "reply" => '0'
                 ]
             ]);
-            file_put_contents('php://stderr', 'Debug : '.print_r($res,1));
+            file_put_contents('php://stderr', 'Debug : '.$res);
             file_put_contents('php://stderr', 'Debug url: '.$url);
             return true;
         }
