@@ -4,7 +4,7 @@ namespace Model;
 
 use Controller\debug;
 
-class xpModel extends objectDB
+class xpModel extends aobjectDB
 {
     private $userid;
     private $groupid;
@@ -15,7 +15,7 @@ class xpModel extends objectDB
         $this->userid = $userid;
         $this->groupid = $groupid;
         $this->addXP();
-        debug::debugToMe(print_r($this->db->error(),1));
+        //debug::debugToMe(print_r($this->db->error(),1));
     }
 
     public function hasXP()
