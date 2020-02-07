@@ -68,12 +68,13 @@ class keywords extends aobjectDB
             $hostimage = "https://" . $host . "/content/" . $messageID;
             $res = Uploader::upload($hostimage) ? true : false;
             $url = $res['secure_url'];
-            $this->db->update("imageKeywords",["reply" => $url],[
+            $this->db->update("imagekeywords",["reply" => $url],[
                 "AND" => [
                     "groupid" => $groupID,
                     "reply" => 0
                 ]
             ]);
+            error_log($hostimage);
             return true;
         }
         else{
