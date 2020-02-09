@@ -112,9 +112,6 @@ class keywords extends aobjectDB
                     "reply" => '0'
                 ]
             ]);
-            error_log($hostimage);
-            file_put_contents('php://stderr', 'Debug : '.$res);
-            file_put_contents('php://stderr', 'Debug url: '.$url);
             return true;
         }
         else{
