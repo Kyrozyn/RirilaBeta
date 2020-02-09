@@ -78,15 +78,4 @@ class keywords{
     function uploadImageExist(){
         return $this->model->uploadImageExist($this->groupid);
     }
-
-    function deleteKeyword($keyword){
-        if($this->model->deleteKeywords($keyword,$this->groupid)){
-            $reply = new TextMessageBuilder("Keyword berhasil dihapus");
-        }
-        else{
-            $reply = new TextMessageBuilder("Keyword tidak ditemukan");
-        }
-        return $reply;
-    }
-
 }
