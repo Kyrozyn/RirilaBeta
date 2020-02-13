@@ -172,6 +172,12 @@ $app->get('/getallimagekeywords', function ($req, Response $res) {
     return $res->withJson($keywords);
 });
 
+$app->get('/getstatskeywords', function ($req, Response $res) {
+    $api = new api();
+    $keywords = $api->getStatsKeyword();
+    return $res->withJson($keywords);
+});
+
 try {
     $app->run();
 } catch (Exception $e) {

@@ -19,4 +19,9 @@ class api extends AobjectDB
         return $this->db->select("imagekeywords","*");
     }
 
+    public function getStatsKeyword(){
+        return $this->db->query("SELECT `groupid`, COUNT(*) as jumlah FROM keywords GROUP BY `groupid`")->fetchAll();
+
+    }
+
 }
