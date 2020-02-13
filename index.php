@@ -160,9 +160,15 @@ $app->get('/content/{messageId}', function ($req, $res) use ($bot) {
     return $res->withHeader('Content-Type', $result->getHeader('Content-Type'));
 });
 
-$app->get('/getallkeywords', function ($req, Response $res) use ($bot) {
+$app->get('/getallkeywords', function ($req, Response $res) {
     $api = new api();
     $keywords = $api->getAllKeywords();
+    return $res->withJson($keywords);
+});
+
+$app->get('/getallimagekeywords', function ($req, Response $res) {
+    $api = new api();
+    $keywords = $api->getAllImageKeywords();
     return $res->withJson($keywords);
 });
 
