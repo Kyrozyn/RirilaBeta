@@ -79,4 +79,3 @@ composer.phar
 
 .idea/encodings.xml
 .idea/symfony2.xml
-/model/AobjectDB.php
