@@ -77,7 +77,6 @@ composer.phar
 # You may choose to ignore a library lock file http://getcomposer.org/doc/02-libraries.md#lock-file
 # composer.lock
 
-!/settings/def.php
 .idea/encodings.xml
 .idea/symfony2.xml
-!/model/objectDB.php
+/model/AobjectDB.php
