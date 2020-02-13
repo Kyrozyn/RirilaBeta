@@ -18,6 +18,7 @@ use Controller\xp;
 use LINE\LINEBot;
 use LINE\LINEBot\Constant\HTTPHeader;
 use LINE\LINEBot\HTTPClient\CurlHTTPClient;
+use Model\api;
 use Slim\App;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -157,6 +158,12 @@ $app->get('/content/{messageId}', function ($req, $res) use ($bot) {
     $res->write($result->getRawBody());
 
     return $res->withHeader('Content-Type', $result->getHeader('Content-Type'));
+});
+
+$app->get('/getallkeywords', function ($req, Response $res) use ($bot) {
+    $api = new api();
+    $keywords = $api->getAllKeywords();
+    return $res->withJson($keywords);
 });
 
 try {
