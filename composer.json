@@ -13,7 +13,7 @@
     "slim/slim": "3.12.1",
     "catfan/medoo": "v1.6.1",
     "linecorp/line-bot-sdk": "3.8.0",
-    "jikan-me/jikan": "v2.8.1",
+    "jikan-me/jikan": "v2.16.1",
     "cloudinary/cloudinary_php": "1.16.0"
   }
 }
