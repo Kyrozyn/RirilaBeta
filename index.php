@@ -119,6 +119,13 @@ $app->post('/bot', function (Request $req, Response $res) use ($bot) {
                                             $reply = new LINEBot\MessageBuilder\TextMessageBuilder('Mohon isi keywordnya ya ^_^');
                                         }
                                         break;
+                                    case 'del':
+                                        if (isset($text->textBintang[1])) {
+                                            $reply = $keywords->deleteKeyword($text->textBintang[1]);
+                                        } else {
+                                            $reply = new LINEBot\MessageBuilder\TextMessageBuilder('Mohon isi keyword yang akan dihapus ya ^_^');
+                                        }
+                                        break;
                                     default:
                                         $reply = $keywords->getKeyword($text->textKecil);
                                         break;

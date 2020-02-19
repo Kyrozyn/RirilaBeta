@@ -127,4 +127,24 @@ class keywords extends aobjectDB
             ]
         ]);
     }
+
+    function deleteKeywords($keyword,$groupid){
+        if($this->checkKeywordExist($keyword,$groupid)){
+            return $this->db->delete("keywords", [
+                "AND" => [
+                    "groupid" => $groupid,
+                    "keyword" => $keyword
+                ]]);
+        }
+        else if($this->checkImageKeywordExist($keyword,$groupid)){
+            return $this->db->delete("imagekeywords", [
+                "AND" => [
+                    "groupid" => $groupid,
+                    "keyword" => $keyword
+                ]]);
+        }
+        else{
+            return 0;
+        }
+    }
 }
