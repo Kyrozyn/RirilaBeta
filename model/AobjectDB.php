@@ -20,11 +20,11 @@ class AobjectDB
         try {
             $this->db = new Medoo([
                 'database_type' => 'mysql',
-                'database_name' => 'ririla',
+                'database_name' => getenv('DATABASE_NAME'),
                 'server'        => '127.0.0.1',
-                'port'          => '57181',
-                'username'      => 'azure',
-                'password'      => '6#vWHD_$',
+                'port'          => getenv('DATABASE_PORT'),
+                'username'      => getenv('DATABASE_USERNAME'),
+                'password'      => getenv('DATABASE_PASSWORD'),
             ]);
             $this->db->query("SET GLOBAL event_scheduler='ON'");
         } catch (Exception $e) {
