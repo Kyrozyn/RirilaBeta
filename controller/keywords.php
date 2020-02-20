@@ -89,10 +89,15 @@ class keywords{
     }
 
     function getAllKeywordsGroup(){
-        $sentence = "Keywords yang tersedia : ";
-        foreach ($this->model->getAllKeywordsGroup($this->groupid) as $a => $d){
+        $sentence = "Keywords yang tersedia : \n";
+        $model = $this->model->getAllKeywordsGroup($this->groupid);
+        $len = count($model);
+        foreach ($model as $a => $d){
             $f = $a+1;
-            $sentence = $sentence.$f.". ".$d['keyword']."\n";
+            $sentence = $sentence.$f.". ".$d['keyword'];
+            if(!$f == $len){
+                $sentence = $sentence."\n";
+            }
         }
         return new TextMessageBuilder($sentence);
     }
