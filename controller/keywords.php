@@ -1,12 +1,11 @@
 <?php
-
 namespace Controller;
 
 use LINE\LINEBot;
 use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
 
-class keywords
-{
+class keywords{
+
     public function __construct($userid, $groupid, LINEBot $bot)
     {
         $this->userid = $userid;
@@ -15,63 +14,77 @@ class keywords
         $this->model = new \Model\keywords();
     }
 
-    public function addKeyword($keyword, $reply)
-    {
-        if ($this->model->checkIsExist($keyword, $this->groupid)) {
-            $reply = new TextMessageBuilder('Maaf keyword sudah ada!');
-        } else {
-            if ($this->model->addKeyword($keyword, $reply, $this->groupid)) {
-                $reply = new TextMessageBuilder('Keyword sudah ditambahkan!');
-            } else {
-                $reply = new TextMessageBuilder('Ada kesalahan dalam menambahkan keyword...?');
+    function addKeyword($keyword,$reply){
+        if($this->model->checkIsExist($keyword, $this->groupid)){
+            $reply = new TextMessageBuilder("Maaf keyword sudah ada!");
+        }
+        else{
+            if($this->model->addKeyword($keyword,$reply,$this->groupid)){
+                $reply = new TextMessageBuilder("Keyword sudah ditambahkan!");
+            }
+            else{
+                $reply = new TextMessageBuilder("Ada kesalahan dalam menambahkan keyword...?");
             }
         }
-
         return $reply;
     }
 
-    public function getKeyword($keyword)
-    {
-        if ($this->model->checkIsExist($keyword, $this->groupid)) {
-            $reply = $this->model->getKeyword($keyword, $this->groupid);
+    function getKeyword($keyword){
+        if($this->model->checkKeywordExist($keyword, $this->groupid)){
+            $reply = $this->model->getKeyword($keyword,$this->groupid);
             $foo = new TextMessageBuilder($reply);
-
             return $foo;
-        } else {
+        }
+        else if ($this->model->checkImageKeywordExist($keyword, $this->groupid)){
+            $reply = $this->model->getImageKeyword($keyword,$this->groupid);
+            $foo = new LINEBot\MessageBuilder\ImageMessageBuilder($reply,$reply);
+            return $foo;
+        }
+        else{
             return false;
         }
     }
 
-    public function addImageKeyword($keyword)
-    {
-        if ($this->model->uploadImageExist($this->groupid)) {
-            $reply = new TextMessageBuilder('Kamu belum mengirimkan gambar untuk keyword sebelumnya.. >..<');
-
-            return $reply;
-        } else {
-            if ($this->model->addImageKeyword($keyword, $this->groupid)) {
-                $reply = new TextMessageBuilder('Silahkan Kirim gambarnya!');
-
+    function addImageKeyword($keyword){
+        if(!$this->model->checkIsExist($keyword, $this->groupid)) {
+            if ($this->model->uploadImageExist($this->groupid)) {
+                $reply = new TextMessageBuilder("Kamu belum mengirimkan gambar untuk keyword sebelumnya.. >..<");
                 return $reply;
             } else {
-                return false;
+                if ($this->model->addImageKeyword($keyword, $this->groupid)) {
+                    $reply = new TextMessageBuilder("Silahkan Kirim gambarnya!");
+                    return $reply;
+                } else {
+                    return false;
+                }
             }
+        }
+        else{
+            $reply = new TextMessageBuilder("Maaf keyword sudah ada!");
+            return $reply;
         }
     }
 
-    public function uploadImageKeyword($messageID)
-    {
-        if ($this->model->uploadImageKeyword($this->groupid, $messageID)) {
-            $reply = new TextMessageBuilder('Keyword Berhasil ditambahkan!');
-
+    function uploadImageKeyword($messageID){
+        if($this->model->uploadImageKeyword($this->groupid, $messageID)) {
+            $reply = new TextMessageBuilder("Keyword Berhasil ditambahkan!");
             return $reply;
-        } else {
+        }
+        else {
             return false;
         }
     }
 
-    public function uploadImageExist()
-    {
-        return $this->model->uploadImageExist($this->groupid) ? true : false;
+    function uploadImageExist(){
+        return $this->model->uploadImageExist($this->groupid);
+    }
+
+    function deleteKeyword($keyword){
+        if($this->model->deleteKeywords($keyword,$this->groupid)){
+            return new TextMessageBuilder("Keyword Berhasil dihapus!");
+        }
+        else{
+            return new TextMessageBuilder("Keyword tidak ditemukan :(");
+        }
     }
 }

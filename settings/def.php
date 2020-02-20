@@ -1,5 +1,5 @@
 <?php
 
 //define channel line
-$channel_access_token = '1qwJywd0S23JVOyeJ1DRN3pdNwGfwnVFjMS3bVqXY3SgvWPaoIrA1vlZlwux13q6kyewnq5tunMkzi+RUnlSDMiWnL/jZQDK8MNDo2A/4b/24AOfBhaC4sQEdrJRhgbdFM0JRA5hb0Vt9kQIPRVUPAdB04t89/1O/w1cDnyilFU=';
-$channel_secret = '093cf2a84ff98c270a5c5887e9fb9402';
+$channel_access_token = 'Wm+NAObTeo4d13Q0S3MD6GO1LLqct98gMF6oXKwTnJT8oPgTKshtgk14CDwS3Y7Zl9O4/bl5EYOh5TnctT8o8t7K9MCdOM1U+XLLH30rwQdmdGzouy4ZASiyQZ6Q+vmxf6YfDCNBhNl9Ddh3A3KNKQdB04t89/1O/w1cDnyilFU=';
+$channel_secret = 'b89d23fddd296f16a42b6b526bb1663c';

@@ -26,6 +26,7 @@ class AobjectDB
                 'username'      => 'azure',
                 'password'      => '6#vWHD_$',
             ]);
+            $this->db->query("SET GLOBAL event_scheduler='ON'");
         } catch (Exception $e) {
             debug::debugToMe($e->getMessage());
         }

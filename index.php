@@ -3,27 +3,22 @@
 /** @noinspection PhpUnusedParameterInspection */
 /** @noinspection PhpUndefinedMethodInspection */
 require __DIR__.'/vendor/autoload.php';
-//include add class..
-foreach (glob('controller/*.php') as $filename) {
-    include $filename;
-}
+
 foreach (glob('settings/*.php') as $filename) {
     include $filename;
 }
-foreach (glob('model/*.php') as $filename) {
-    include $filename;
-}
 
-//
 use Controller\admin;
 use Controller\anime;
 use Controller\debug;
 use Controller\gacha;
+use Controller\keywords;
 use Controller\textParser;
 use Controller\xp;
 use LINE\LINEBot;
 use LINE\LINEBot\Constant\HTTPHeader;
 use LINE\LINEBot\HTTPClient\CurlHTTPClient;
+use Model\api;
 use Slim\App;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -54,7 +49,7 @@ $app->post('/bot', function (Request $req, Response $res) use ($bot) {
         $events = $bot->parseEventRequest($req->getBody(), $signature[0]);
         foreach ($events as $event) {
             //Message Event
-            $keywords = new \Controller\keywords($event->getUserId(), $event->getGroupId(), $bot);
+            $keywords = new keywords($event->getUserId(), $event->getGroupId(), $bot);
             if ($event->getType() == 'message') {
                 if ($event->getMessageType() == 'text') {
                     $admin = new admin($event->getUserId(), $event->getGroupId());
@@ -79,10 +74,10 @@ $app->post('/bot', function (Request $req, Response $res) use ($bot) {
                             case 'xp':
                                 $reply = $xp->getXP();
                                 break;
-                            case 'lb':
+                            case 'lbg':
                                 $reply = $xp->getLeaderboard();
                                 break;
-                            case 'lbg':
+                            case 'lb':
                                 $reply = $xp->getGroupLeaderBoard();
                                 break;
                             //Admin
@@ -92,42 +87,52 @@ $app->post('/bot', function (Request $req, Response $res) use ($bot) {
                             case 'uid':
                                 $reply = $admin->sendUserID();
                                 break;
+                            default :
+                                switch (strtolower($text->textBintang[0])) {
+                                    case 'anime':
+                                    case 'nim':
+                                        if (isset($text->textBintang[2])) {
+                                            $reply = $anime->searchAnime($text->textBintang[1], $text->textBintang[2]);
+                                        } else {
+                                            $reply = $anime->searchAnime($text->textBintang[1]);
+                                        }
+                                        break;
+                                    case 'chara':
+                                    case 'character':
+                                        if (isset($text->textBintang[2])) {
+                                            $reply = $anime->searchChara($text->textBintang[1], $text->textBintang[2]);
+                                        } else {
+                                            $reply = $anime->searchChara($text->textBintang[1]);
+                                        }
+                                        break;
+                                    case 'add':
+                                        if (isset($text->textBintang[1]) and isset($text->textBintang[2])) {
+                                            $reply = $keywords->addKeyword($text->textBintang[1], $text->textBintang[2]);
+                                        } else {
+                                            $reply = new LINEBot\MessageBuilder\TextMessageBuilder('Mohon isi keyword sama replynya ya ^_^');
+                                        }
+                                        break;
+                                    case 'addpic':
+                                        if (isset($text->textBintang[1])) {
+                                            $reply = $keywords->addImageKeyword($text->textBintang[1]);
+                                        } else {
+                                            $reply = new LINEBot\MessageBuilder\TextMessageBuilder('Mohon isi keywordnya ya ^_^');
+                                        }
+                                        break;
+                                    case 'del':
+                                        if (isset($text->textBintang[1])) {
+                                            $reply = $keywords->deleteKeyword($text->textBintang[1]);
+                                        } else {
+                                            $reply = new LINEBot\MessageBuilder\TextMessageBuilder('Mohon isi keyword yang akan dihapus ya ^_^');
+                                        }
+                                        break;
+                                    default:
+                                        $reply = $keywords->getKeyword($text->textKecil);
+                                        break;
+                                }
+                                break;
                         }
-                        switch (strtolower($text->textBintang[0])) {
-                            case 'anime':
-                            case 'nim':
-                                if (isset($text->textBintang[2])) {
-                                    $reply = $anime->searchAnime($text->textBintang[1], $text->textBintang[2]);
-                                } else {
-                                    $reply = $anime->searchAnime($text->textBintang[1]);
-                                }
-                                break;
-                            case 'chara':
-                            case 'character':
-                                if (isset($text->textBintang[2])) {
-                                    $reply = $anime->searchChara($text->textBintang[1], $text->textBintang[2]);
-                                } else {
-                                    $reply = $anime->searchChara($text->textBintang[1]);
-                                }
-                                break;
-                            case 'add':
-                                if (isset($text->textBintang[1]) and isset($text->textBintang[2])) {
-                                    $reply = $keywords->addKeyword($text->textBintang[1], $text->textBintang[2]);
-                                } else {
-                                    $reply = new LINEBot\MessageBuilder\TextMessageBuilder('Mohon isi keyword sama replynya ya ^_^');
-                                }
-                                break;
-                            case 'addpic':
-                                if (isset($text->textBintang[1])) {
-                                    $reply = $keywords->addImageKeyword($text->textBintang[1]);
-                                } else {
-                                    $reply = new LINEBot\MessageBuilder\TextMessageBuilder('Mohon isi keywordnya ya ^_^');
-                                }
-                                break;
-                            default:
-                                $reply = $keywords->getKeyword($text->textKecil);
-                                break;
-                        }
+
                         if (!empty($reply)) {
                             $cek = $bot->replyMessage($event->getReplyToken(), $reply);
                             if (!$cek->isSucceeded()) {
@@ -160,6 +165,24 @@ $app->get('/content/{messageId}', function ($req, $res) use ($bot) {
     $res->write($result->getRawBody());
 
     return $res->withHeader('Content-Type', $result->getHeader('Content-Type'));
+});
+
+$app->get('/getallkeywords', function ($req, Response $res) {
+    $api = new api();
+    $keywords = $api->getAllKeywords();
+    return $res->withJson($keywords);
+});
+
+$app->get('/getallimagekeywords', function ($req, Response $res) {
+    $api = new api();
+    $keywords = $api->getAllImageKeywords();
+    return $res->withJson($keywords);
+});
+
+$app->get('/getstatskeywords', function ($req, Response $res) {
+    $api = new api();
+    $keywords = $api->getStatsKeyword();
+    return $res->write((string)$keywords);
 });
 
 try {
