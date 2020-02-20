@@ -95,9 +95,7 @@ class keywords{
         foreach ($model as $a => $d){
             $f = $a+1;
             $sentence = $sentence.$f.". ".$d['keyword'];
-            if($a === array_key_last($model)){
-                $sentence = $sentence."\n";
-            }
+            $sentence = $sentence."\n";
         }
         return new TextMessageBuilder($sentence);
     }
