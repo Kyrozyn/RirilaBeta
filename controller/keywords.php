@@ -42,7 +42,12 @@ class keywords{
         }
         else if ($this->model->checkImageKeywordExist($keyword, $this->groupid)){
             $reply = $this->model->getImageKeyword($keyword,$this->groupid);
-            $foo = new LINEBot\MessageBuilder\ImageMessageBuilder($reply,$reply);
+            if($reply == '0'){
+                $foo = new TextMessageBuilder("Kamu belum mengupload gambar untuk keyword ini... >..<");
+            }
+            else{
+                $foo = new LINEBot\MessageBuilder\ImageMessageBuilder($reply,$reply);
+            }
             return $foo;
         }
         else{
