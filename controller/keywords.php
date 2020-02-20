@@ -6,6 +6,8 @@ use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
 
 class keywords{
 
+    private $reserved_keywords = ["gacha","list","gacha banyak","gacha kontol","xp","lb","lbg","gid","uid"];
+
     public function __construct($userid, $groupid, LINEBot $bot)
     {
         $this->userid = $userid;
@@ -15,7 +17,10 @@ class keywords{
     }
 
     function addKeyword($keyword,$reply){
-        if($this->model->checkIsExist($keyword, $this->groupid)){
+        if(in_array($keyword,$this->reserved_keywords)){
+            $reply = new TextMessageBuilder("Ah... you can't do this...\nKeywords tersebut sudah dipakai oleh aku >..<");
+        }
+        else if($this->model->checkIsExist($keyword, $this->groupid)){
             $reply = new TextMessageBuilder("Maaf keyword sudah ada!");
         }
         else{
@@ -46,7 +51,11 @@ class keywords{
     }
 
     function addImageKeyword($keyword){
-        if(!$this->model->checkIsExist($keyword, $this->groupid)) {
+        if(in_array($keyword,$this->reserved_keywords)){
+            $reply = new TextMessageBuilder("Ah... you can't do this...\nKeywords tersebut sudah dipakai oleh aku >..<");
+            return $reply;
+        }
+        else if(!$this->model->checkIsExist($keyword, $this->groupid)) {
             if ($this->model->uploadImageExist($this->groupid)) {
                 $reply = new TextMessageBuilder("Kamu belum mengirimkan gambar untuk keyword sebelumnya.. >..<");
                 return $reply;
@@ -91,7 +100,6 @@ class keywords{
     function getAllKeywordsGroup(){
         $sentence = "Keywords yang tersedia : \n";
         $model = $this->model->getAllKeywordsGroup($this->groupid);
-        $len = count($model);
         foreach ($model as $a => $d){
             $f = $a+1;
             $sentence = $sentence.$f.". ".$d['keyword'];
