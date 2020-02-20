@@ -147,4 +147,8 @@ class keywords extends aobjectDB
             return 0;
         }
     }
+
+    function getAllKeywordsGroup($groupid){
+        return $this->db->select("keywords","*",["groupid" => $groupid]);
+    }
 }

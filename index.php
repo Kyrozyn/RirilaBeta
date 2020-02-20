@@ -22,6 +22,7 @@ use Model\api;
 use Slim\App;
 use Slim\Http\Request;
 use Slim\Http\Response;
+use Slim\Views\PhpRenderer;
 
 //
 Cloudinary::config([
@@ -36,6 +37,11 @@ $app = new App(['settings' => ['displayErrorDetails' => true]]);
 $httpClient = new CurlHTTPClient($channel_access_token);
 $bot = new LINEBot($httpClient, ['channelSecret' => $channel_secret]);
 //
+
+$app->get('/', function ($req, $res, $args) use ($app) {
+    $renderer = new PhpRenderer('view');
+    return $renderer->render($res, "awal.php", $args);
+});
 
 $app->post('/bot', function (Request $req, Response $res) use ($bot) {
     try {
@@ -65,6 +71,9 @@ $app->post('/bot', function (Request $req, Response $res) use ($bot) {
                             //Gacha
                             case 'gacha':
                                 $reply = gacha::gachaSatu();
+                                break;
+                            case 'list':
+                                $reply = $keywords->getAllKeywordsGroup();
                                 break;
                             case 'gacha banyak':
                             case 'gacha kontol':

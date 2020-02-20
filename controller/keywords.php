@@ -87,4 +87,12 @@ class keywords{
             return new TextMessageBuilder("Keyword tidak ditemukan :(");
         }
     }
+
+    function getAllKeywordsGroup(){
+        $sentence = "";
+        foreach ($this->model->getAllKeywordsGroup($this->groupid) as $a => $d){
+            $sentence = $a.". ".$sentence.$d['keyword']."\n";
+        }
+        return new TextMessageBuilder($sentence);
+    }
 }
