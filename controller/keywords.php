@@ -99,7 +99,9 @@ class keywords{
 
     function getAllKeywordsGroup(){
         $sentence = "Keywords yang tersedia : \n";
-        $model = $this->model->getAllKeywordsGroup($this->groupid);
+        $model1 = $this->model->getAllKeywordsGroup($this->groupid);
+        $model2 = $this->model->getAllImageKeywordsGroup($this->groupid);
+        $model = array_merge($model1,$model2);
         foreach ($model as $a => $d){
             $f = $a+1;
             $sentence = $sentence.$f.". ".$d['keyword'];

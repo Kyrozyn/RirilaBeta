@@ -151,4 +151,8 @@ class keywords extends aobjectDB
     function getAllKeywordsGroup($groupid){
         return $this->db->select("keywords","*",["groupid" => $groupid]);
     }
+
+    function getAllImageKeywordsGroup($groupid){
+        return $this->db->select("imagekeywords","*",["groupid" => $groupid]);
+    }
 }
