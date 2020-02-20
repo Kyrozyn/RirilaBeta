@@ -95,7 +95,7 @@ class keywords{
         foreach ($model as $a => $d){
             $f = $a+1;
             $sentence = $sentence.$f.". ".$d['keyword'];
-            if(!$f == $len){
+            if(!$a === array_key_last($model)){
                 $sentence = $sentence."\n";
             }
         }
