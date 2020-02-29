@@ -13,11 +13,11 @@ class gacha
         $roll = null;
 
         try {
-            $roll = random_int(1, 100);
+            $roll = random_int(1, 102);
         } catch (Exception $e) {
             file_put_contents('php://stderr', 'Exception while random: '.$e->getMessage());
         }
-        if ($roll == 100) {
+        if ($roll <= 102 && $roll > 99) {
             $reply = new TextMessageBuilder('5* Servant');
         } elseif ($roll <= 99 && $roll > 96) {
             $reply = new TextMessageBuilder('5* CE');
@@ -45,11 +45,11 @@ class gacha
             $roll = null;
 
             try {
-                $roll = random_int(1, 100);
+                $roll = random_int(1, 102);
             } catch (Exception $e) {
                 file_put_contents('php://stderr', 'Exception while random: '.$e->getMessage());
             }
-            if ($roll == 100) {
+            if ($roll <= 102 && $roll > 99) {
                 $balas = $balas.'5* Servant';
                 $ssr = $ssr + 1;
             } elseif ($roll <= 99 && $roll > 96) {
