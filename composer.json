@@ -10,7 +10,7 @@
     }
   ],
   "require": {
-    "slim/slim": "3.12.1",
+    "slim/slim": "4.5.0",
     "catfan/medoo": "v1.6.1",
     "linecorp/line-bot-sdk": "3.8.0",
     "jikan-me/jikan": "v2.8.1",
