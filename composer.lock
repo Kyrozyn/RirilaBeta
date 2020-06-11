@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bc832e881a1dd89177f71ba98af355c1",
+    "content-hash": "53b4ad72dbccadc458500960bf456a86",
     "packages": [
         {
             "name": "catfan/medoo",
@@ -439,16 +439,16 @@
         },
         {
             "name": "linecorp/line-bot-sdk",
-            "version": "3.8.0",
+            "version": "4.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/line/line-bot-sdk-php.git",
-                "reference": "b888440c52b7cb876ee536545c74345d83d92c76"
+                "reference": "567ac1fc0deb17baa7860444a437028a8912c6f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/line/line-bot-sdk-php/zipball/b888440c52b7cb876ee536545c74345d83d92c76",
-                "reference": "b888440c52b7cb876ee536545c74345d83d92c76",
+                "url": "https://api.github.com/repos/line/line-bot-sdk-php/zipball/567ac1fc0deb17baa7860444a437028a8912c6f1",
+                "reference": "567ac1fc0deb17baa7860444a437028a8912c6f1",
                 "shasum": ""
             },
             "require": {
@@ -462,9 +462,7 @@
                 "indigophp/hash-compat": "~1.1.0",
                 "phpmd/phpmd": "~2.4",
                 "phpunit/phpunit": "^4.8.24||^5||^6",
-                "squizlabs/php_codesniffer": "~2.6||^3",
-                "symfony/config": "^3.3",
-                "symfony/dependency-injection": "^3.3"
+                "squizlabs/php_codesniffer": "~2.6||^3"
             },
             "suggest": {
                 "apigen/apigen": "Install with roave/better-reflection:dev-master to generate docs",
@@ -495,6 +493,11 @@
                     "name": "Satoshi Shibuya",
                     "email": "satosby@gmail.com",
                     "role": "Maintainer"
+                },
+                {
+                    "name": "Shunsuke Mori",
+                    "email": "morimorim7180@gmail.com",
+                    "role": "Maintainer"
                 }
             ],
             "description": "SDK of the LINE BOT API for PHP",
@@ -504,7 +507,7 @@
                 "line",
                 "sdk"
             ],
-            "time": "2019-04-16T02:50:01+00:00"
+            "time": "2020-06-11T03:57:38+00:00"
         },
         {
             "name": "nikic/fast-route",
