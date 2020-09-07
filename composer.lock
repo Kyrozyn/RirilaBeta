@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bc832e881a1dd89177f71ba98af355c1",
+    "content-hash": "ed34eb88837b218ef6d8c6f861fd71bb",
     "packages": [
         {
             "name": "catfan/medoo",
@@ -67,16 +67,16 @@
         },
         {
             "name": "cloudinary/cloudinary_php",
-            "version": "1.16.0",
+            "version": "1.18.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cloudinary/cloudinary_php.git",
-                "reference": "e33619e48ea8fa0350c007d640777091bfa4fdbc"
+                "reference": "0f24e862b40d7fa1fdb2429e77d711c68e77be71"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cloudinary/cloudinary_php/zipball/e33619e48ea8fa0350c007d640777091bfa4fdbc",
-                "reference": "e33619e48ea8fa0350c007d640777091bfa4fdbc",
+                "url": "https://api.github.com/repos/cloudinary/cloudinary_php/zipball/0f24e862b40d7fa1fdb2429e77d711c68e77be71",
+                "reference": "0f24e862b40d7fa1fdb2429e77d711c68e77be71",
                 "shasum": ""
             },
             "require": {
@@ -85,6 +85,7 @@
                 "php": ">=5.4.0"
             },
             "require-dev": {
+                "ext-zip": "*",
                 "phpunit/phpunit": "4.8.*"
             },
             "type": "library",
@@ -115,7 +116,7 @@
                 "image management",
                 "sdk"
             ],
-            "time": "2019-11-28T15:57:33+00:00"
+            "time": "2020-09-07T12:16:45+00:00"
         },
         {
             "name": "container-interop/container-interop",
@@ -1110,5 +1111,6 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
 }
